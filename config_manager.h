@@ -14,7 +14,8 @@ int read_key(char* cfg_path, int* key);
 
 int edit_pathDB(char* cfg_path);
 
-int edit_key(char* cfg_path);
+// Редагування ключу в конфігураційному файлі
+int edit_key(char* cfg_path, int key);
 
 int make_cfg_file(char* cfg_path);
 

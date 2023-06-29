@@ -21,6 +21,7 @@ int read_pathDB(char* cfg_path, char* out_path) {
 	return 0;
 }
 
+
 int read_key(char* cfg_path, int* key) {
 	// .cfg файл
 	FILE* configure;
@@ -34,6 +35,33 @@ int read_key(char* cfg_path, int* key) {
 	// зміщуємося та зчитуємо шлях
 	fseek(configure, -8, SEEK_END);
 	fscanf(configure, "%d", key);
+	fclose(configure);
+	return 0;
+}
+
+
+int edit_pathDB(char* cfg_path) {
+	return 0;
+}
+
+
+int edit_key(char* cfg_path, int key) {
+	// .cfg файл
+	FILE* configure;
+
+	// якщо не існує або отриманий ключ недопустимий
+	if ((configure = fopen(cfg_path, "r+")) == NULL) {
+		// файл не відкритий повертаємо 1
+		return 1;
+	}
+
+	// якщо отриманий ключ недопустимий
+	else if ((key < 1000000) || (key > 9999999)) {
+		return 2;
+	}
+	// зміщуємося та зчитуємо шлях
+	fseek(configure, -7, SEEK_END);
+	fprintf(configure,"%d", key);
 	fclose(configure);
 	return 0;
 }
