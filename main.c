@@ -23,6 +23,8 @@ int main(int argc, char* argv[]) {
 	// шлях до бази данних
 	char DB_path[200];
 
+	// зчитаний ключ з конфігураційного файлу
+	int license_key;
 
 	// генерація імені файла
 	char cfg_filename[200];
@@ -42,14 +44,14 @@ int main(int argc, char* argv[]) {
 
 	
 	// перевірка чи вдалося зчитати
-	if (read_pathDB(cfg_filename, DB_path) != 0) {
+	if ((read_pathDB(cfg_filename, DB_path) != 0) || (read_key(cfg_filename, &license_key))) {
 		// вивід повідомлення про помилку
 		printf("\nError occurupted\n");
 		return 1;
 	}
 	// виведення назви бази данних
 	else {
-		printf("\nname of DB file: %s", DB_path);
+		printf("\nname of DB file: %s\nkey: %d", DB_path, license_key);
 	}
 
 	return 0;

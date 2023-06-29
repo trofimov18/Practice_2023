@@ -9,7 +9,8 @@
 // Оголошення функції зчитування назви бази данних
 int read_pathDB(char* cfg_path, char* out_path);
 
-int read_key(char* cfg_path);
+// Оголошення функції зчитування ключа з конфігураційного файлу
+int read_key(char* cfg_path, int* key);
 
 int edit_pathDB(char* cfg_path);
 
