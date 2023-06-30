@@ -41,7 +41,10 @@ int main(int argc, char* argv[]) {
 	
 	// виводимо шлях поточної програми
 	printf("name of file: %s", cfg_filename);
+
+	// редагуємо ключ та назву БД
 	edit_key(cfg_filename, 1921220);
+	edit_pathDB(cfg_filename, "LongExampleDataBaseName.dat");
 	
 	// перевірка чи вдалося зчитати
 	if ((read_pathDB(cfg_filename, DB_path) != 0) || (read_key(cfg_filename, &license_key))) {

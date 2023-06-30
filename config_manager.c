@@ -40,7 +40,19 @@ int read_key(char* cfg_path, int* key) {
 }
 
 
-int edit_pathDB(char* cfg_path) {
+int edit_pathDB(char* cfg_path, char* DB_name) {
+	// .cfg файл
+	FILE* configure;
+
+	// якщо не існує або отриманий ключ недопустимий
+	if ((configure = fopen(cfg_path, "r+")) == NULL) {
+		// файл не відкритий повертаємо 1
+		return 1;
+	}
+	// зміщуємося та замінюємо шлях
+	fseek(configure, 113, SEEK_SET);
+	fprintf(configure,"%s\n", DB_name);
+	fclose(configure);
 	return 0;
 }
 
@@ -59,7 +71,7 @@ int edit_key(char* cfg_path, int key) {
 	else if ((key < 1000000) || (key > 9999999)) {
 		return 2;
 	}
-	// зміщуємося та зчитуємо шлях
+	// зміщуємося та замінюємо ключ
 	fseek(configure, -7, SEEK_END);
 	fprintf(configure,"%d", key);
 	fclose(configure);

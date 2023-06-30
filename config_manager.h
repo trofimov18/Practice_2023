@@ -12,7 +12,8 @@ int read_pathDB(char* cfg_path, char* out_path);
 // Оголошення функції зчитування ключа з конфігураційного файлу
 int read_key(char* cfg_path, int* key);
 
-int edit_pathDB(char* cfg_path);
+// Редагування назви БД в конфігураційному файлі
+int edit_pathDB(char* cfg_path, char* DB_name);
 
 // Редагування ключу в конфігураційному файлі
 int edit_key(char* cfg_path, int key);
