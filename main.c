@@ -45,6 +45,7 @@ int main(int argc, char* argv[]) {
 	// редагуємо ключ та назву БД
 	edit_key(cfg_filename, 1921220);
 	edit_pathDB(cfg_filename, "LongExampleDataBaseName.dat");
+	make_cfg_file(cfg_filename);
 	
 	// перевірка чи вдалося зчитати
 	if ((read_pathDB(cfg_filename, DB_path) != 0) || (read_key(cfg_filename, &license_key))) {

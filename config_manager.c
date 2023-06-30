@@ -14,7 +14,7 @@ int read_pathDB(char* cfg_path, char* out_path) {
 		return 1;
 	}
 	// зміщуємося та зчитуємо шлях
-	fseek(configure, 113, SEEK_SET);
+	fseek(configure, 53, SEEK_SET);
 	fgets(path, 200, configure);
 	strcpy(out_path, path);
 	fclose(configure);
@@ -50,7 +50,7 @@ int edit_pathDB(char* cfg_path, char* DB_name) {
 		return 1;
 	}
 	// зміщуємося та замінюємо шлях
-	fseek(configure, 113, SEEK_SET);
+	fseek(configure, 53, SEEK_SET);
 	fprintf(configure,"%s\n", DB_name);
 	fclose(configure);
 	return 0;
@@ -74,6 +74,25 @@ int edit_key(char* cfg_path, int key) {
 	// зміщуємося та замінюємо ключ
 	fseek(configure, -7, SEEK_END);
 	fprintf(configure,"%d", key);
+	fclose(configure);
+	return 0;
+}
+
+
+int make_cfg_file(char* cfg_path) {
+	// .cfg файл
+	FILE* configure;
+
+	// якщо не існує або отриманий ключ недопустимий
+	if ((configure = fopen(cfg_path, "w")) == NULL) {
+		// файл не відкритий повертаємо 1
+		return 1;
+	}
+	fputs("; setup DB path\n", configure);
+	fputs("; in format DB = <path_to_DB>\n", configure);
+	fputs("DB = LongExampleDataBaseName.dat\n", configure);
+	fputs("; license key\n", configure);
+	fputs("KEY = 9999999", configure);
 	fclose(configure);
 	return 0;
 }
