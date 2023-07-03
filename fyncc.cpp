@@ -6,7 +6,7 @@
 void savePaymentsToFile(struct Payment* payments, int numPayments) {
     FILE* file = fopen("payments.txt", "w");
     if (file == NULL) {
-        printf("Не вдалося відкрити файл бази даних.\n");
+        printf("ГЌГҐ ГўГ¤Г Г«Г®Г±Гї ГўВіГ¤ГЄГ°ГЁГІГЁ ГґГ Г©Г« ГЎГ Г§ГЁ Г¤Г Г­ГЁГµ.\n");
         return;
     }
     for (int i = 0; i < numPayments; i++) {
@@ -24,7 +24,7 @@ void savePaymentsToFile(struct Payment* payments, int numPayments) {
 void loadPaymentsFromFile(struct Payment** payments, int* numPayments) {
     FILE* file = fopen("payments.txt", "r");
     if (file == NULL) {
-        printf("Не вдалося відкрити файл бази даних.\n");
+        printf("ГЌГҐ ГўГ¤Г Г«Г®Г±Гї ГўВіГ¤ГЄГ°ГЁГІГЁ ГґГ Г©Г« ГЎГ Г§ГЁ Г¤Г Г­ГЁГµ.\n");
         return;
     }
     int count = 0;
@@ -37,7 +37,7 @@ void loadPaymentsFromFile(struct Payment** payments, int* numPayments) {
     rewind(file);
     struct Payment* temp = (struct Payment*)malloc(count * sizeof(struct Payment));
     if (temp == NULL) {
-        printf("Помилка виділення пам'яті.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўГЁГ¤ВіГ«ГҐГ­Г­Гї ГЇГ Г¬'ГїГІВі.\n");
         fclose(file);
         return;
     }
@@ -58,15 +58,15 @@ void loadPaymentsFromFile(struct Payment** payments, int* numPayments) {
 
 void addPayment(struct Payment** payments, int* numPayments) {
     struct Payment newPayment;
-    printf("Введіть прізвище замовника: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј ГЇГ°ВіГ§ГўГЁГ№ГҐ Г§Г Г¬Г®ГўГ­ГЁГЄГ : ");
     scanf(" %[^\n]", newPayment.surname);
-    printf("Введіть розрахунковий рахунок: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г°Г®Г§Г°Г ГµГіГ­ГЄГ®ГўГЁГ© Г°Г ГµГіГ­Г®ГЄ: ");
     scanf("%d", &newPayment.account);
-    printf("Введіть МФО банку: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј ГЊГ”ГЋ ГЎГ Г­ГЄГі: ");
     scanf("%d", &newPayment.mfo);
-    printf("Введіть дату: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г¤Г ГІГі: ");
     scanf(" %[^\n]", newPayment.date);
-    printf("Введіть суму: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г±ГіГ¬Гі: ");
     scanf("%f", &newPayment.amount);
     newPayment.id = *numPayments + 1;
     (*numPayments)++;
@@ -83,7 +83,7 @@ void deletePayment(struct Payment** payments, int* numPayments, int id) {
         }
     }
     if (index == -1) {
-        printf("Платіж з таким ID не знайдено.\n");
+        printf("ГЏГ«Г ГІВіГ¦ Г§ ГІГ ГЄГЁГ¬ ID Г­ГҐ Г§Г­Г Г©Г¤ГҐГ­Г®.\n");
         return;
     }
     for (int i = index; i < *numPayments - 1; i++) {
@@ -91,7 +91,7 @@ void deletePayment(struct Payment** payments, int* numPayments, int id) {
     }
     (*numPayments)--;
     *payments = (struct Payment*)realloc(*payments, (*numPayments) * sizeof(struct Payment));
-    printf("Платіж з ID %d успішно видалено.\n", id);
+    printf("ГЏГ«Г ГІВіГ¦ Г§ ID %d ГіГ±ГЇВіГёГ­Г® ГўГЁГ¤Г Г«ГҐГ­Г®.\n", id);
 }
 
 void modifyPayment(struct Payment* payments, int numPayments, int id) {
@@ -103,33 +103,33 @@ void modifyPayment(struct Payment* payments, int numPayments, int id) {
         }
     }
     if (index == -1) {
-        printf("Платіж з таким ID не знайдено.\n");
+        printf("ГЏГ«Г ГІВіГ¦ Г§ ГІГ ГЄГЁГ¬ ID Г­ГҐ Г§Г­Г Г©Г¤ГҐГ­Г®.\n");
         return;
     }
     struct Payment modifiedPayment;
     modifiedPayment.id = id;
-    printf("Введіть нове прізвище замовника: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®ГўГҐ ГЇГ°ВіГ§ГўГЁГ№ГҐ Г§Г Г¬Г®ГўГ­ГЁГЄГ : ");
     scanf(" %[^\n]", modifiedPayment.surname);
-    printf("Введіть новий розрахунковий рахунок: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®ГўГЁГ© Г°Г®Г§Г°Г ГµГіГ­ГЄГ®ГўГЁГ© Г°Г ГµГіГ­Г®ГЄ: ");
     scanf("%d", &modifiedPayment.account);
-    printf("Введіть нову МФО банку: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®ГўГі ГЊГ”ГЋ ГЎГ Г­ГЄГі: ");
     scanf("%d", &modifiedPayment.mfo);
-    printf("Введіть нову дату: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®ГўГі Г¤Г ГІГі: ");
     scanf(" %[^\n]", modifiedPayment.date);
-    printf("Введіть нову суму: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®ГўГі Г±ГіГ¬Гі: ");
     scanf("%f", &modifiedPayment.amount);
     payments[index] = modifiedPayment;
-    printf("Платіж з ID %d успішно змінено.\n", id);
+    printf("ГЏГ«Г ГІВіГ¦ Г§ ID %d ГіГ±ГЇВіГёГ­Г® Г§Г¬ВіГ­ГҐГ­Г®.\n", id);
 }
 
 void displayPayments(struct Payment* payments, int numPayments) {
     for (int i = 0; i < numPayments; i++) {
         printf("ID: %d\n", payments[i].id);
-        printf("Прізвище замовника: %s\n", payments[i].surname);
-        printf("Розрахунковий рахунок: %d\n", payments[i].account);
-        printf("МФО банку: %d\n", payments[i].mfo);
-        printf("Дата: %s\n", payments[i].date);
-        printf("Сума: %.2f\n", payments[i].amount);
+        printf("ГЏГ°ВіГ§ГўГЁГ№ГҐ Г§Г Г¬Г®ГўГ­ГЁГЄГ : %s\n", payments[i].surname);
+        printf("ГђГ®Г§Г°Г ГµГіГ­ГЄГ®ГўГЁГ© Г°Г ГµГіГ­Г®ГЄ: %d\n", payments[i].account);
+        printf("ГЊГ”ГЋ ГЎГ Г­ГЄГі: %d\n", payments[i].mfo);
+        printf("Г„Г ГІГ : %s\n", payments[i].date);
+        printf("Г‘ГіГ¬Г : %.2f\n", payments[i].amount);
         printf("\n");
     }
 }
@@ -138,11 +138,11 @@ void displayPaymentsByAccountAndMFO(struct Payment* payments, int numPayments, i
     for (int i = 0; i < numPayments; i++) {
         if (payments[i].account == account && payments[i].mfo == mfo) {
             printf("ID: %d\n", payments[i].id);
-            printf("Прізвище замовника: %s\n", payments[i].surname);
-            printf("Розрахунковий рахунок: %d\n", payments[i].account);
-            printf("МФО банку: %d\n", payments[i].mfo);
-            printf("Дата: %s\n", payments[i].date);
-            printf("Сума: %.2f\n", payments[i].amount);
+            printf("ГЏГ°ВіГ§ГўГЁГ№ГҐ Г§Г Г¬Г®ГўГ­ГЁГЄГ : %s\n", payments[i].surname);
+            printf("ГђГ®Г§Г°Г ГµГіГ­ГЄГ®ГўГЁГ© Г°Г ГµГіГ­Г®ГЄ: %d\n", payments[i].account);
+            printf("ГЊГ”ГЋ ГЎГ Г­ГЄГі: %d\n", payments[i].mfo);
+            printf("Г„Г ГІГ : %s\n", payments[i].date);
+            printf("Г‘ГіГ¬Г : %.2f\n", payments[i].amount);
             printf("\n");
         }
     }
@@ -152,11 +152,11 @@ void displayPaymentsByDateAndAmount(struct Payment* payments, int numPayments, c
     for (int i = 0; i < numPayments; i++) {
         if (strcmp(payments[i].date, date) == 0 && payments[i].amount == amount) {
             printf("ID: %d\n", payments[i].id);
-            printf("Прізвище замовника: %s\n", payments[i].surname);
-            printf("Розрахунковий рахунок: %d\n", payments[i].account);
-            printf("МФО банку: %d\n", payments[i].mfo);
-            printf("Дата: %s\n", payments[i].date);
-            printf("Сума: %.2f\n", payments[i].amount);
+            printf("ГЏГ°ВіГ§ГўГЁГ№ГҐ Г§Г Г¬Г®ГўГ­ГЁГЄГ : %s\n", payments[i].surname);
+            printf("ГђГ®Г§Г°Г ГµГіГ­ГЄГ®ГўГЁГ© Г°Г ГµГіГ­Г®ГЄ: %d\n", payments[i].account);
+            printf("ГЊГ”ГЋ ГЎГ Г­ГЄГі: %d\n", payments[i].mfo);
+            printf("Г„Г ГІГ : %s\n", payments[i].date);
+            printf("Г‘ГіГ¬Г : %.2f\n", payments[i].amount);
             printf("\n");
         }
     }
