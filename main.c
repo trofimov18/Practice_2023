@@ -14,6 +14,7 @@
 #pragma warning(disable : 4996)
 
 #include "config_manager.h"
+#include "license_key.h"
 
 
 
@@ -43,7 +44,8 @@ int main(int argc, char* argv[]) {
 	printf("name of file: %s", cfg_filename);
 
 	// редагуємо ключ та назву БД
-	edit_key(cfg_filename, 1921220);
+	printf("\nkey: %d\n", key_generate());
+	edit_key(cfg_filename, 2921221);
 	edit_pathDB(cfg_filename, "LongExampleDataBaseName.dat");
 	make_cfg_file(cfg_filename);
 	
@@ -56,6 +58,7 @@ int main(int argc, char* argv[]) {
 	// виведення назви бази данних
 	else {
 		printf("\nname of DB file: %s\nkey: %d", DB_path, license_key);
+		printf("\nis valid %d", key_valid(license_key));
 	}
 
 	return 0;
