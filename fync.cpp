@@ -1,4 +1,12 @@
-﻿#define _CRT_SECURE_NO_WARNINGS
+﻿/**
+* @file fync.cpp
+* @author Кириченко, гр. 515-i, варіант 19
+* @date 3 липня 2023
+* @brief Практика
+*
+* База даних платежів
+*/
+#define _CRT_SECURE_NO_WARNINGS
 #include "stdio.h"
 #include "fyncc.h"
 #include <stdlib.h>
