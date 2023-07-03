@@ -23,3 +23,4 @@ void displayPaymentsByAccountAndMFO(struct Payment* payments, int numPayments, i
 void displayPaymentsByDateAndAmount(struct Payment* payments, int numPayments, char* date, float amount);
 
 #endif
+
