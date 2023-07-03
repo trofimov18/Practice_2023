@@ -17,7 +17,9 @@
 #include "config_manager.h"
 #include "license_key.h"
 
-
+void hot_keys() {
+	printf("\n q -- exit program\n k -- editing license key\n p -- edit path to BD");
+}
 
 
 int main(int argc, char* argv[]) {
@@ -54,11 +56,12 @@ int main(int argc, char* argv[]) {
 		printf("\n.cfg file created");
 	}
 	// виведення назви бази данних
-	printf("\nYou now working with DB file: %s\nkey: %d", DB_path, license_key);
+	printf("\nYou now working with DB file: %s", DB_path);
 	program_activate = key_generate(license_key);
 	program_activate == 0 ? printf("\nYou using full version of programm") : printf("\nLicense key invalid you can`t use advansed programm funcs");
 	// нескінченний цикл де все "крутиться"
 	for (;;) {
+		hot_keys();
 		// отримуємо горячу клавішу (тільки англ розкладка)
 		operation = getch();
 		switch (operation)
