@@ -13,6 +13,7 @@
 #include <windows.h>
 // вимкнув повідомлення про використання небезпечних функцій з string.h
 #pragma warning(disable : 4996)
+#pragma warning(disable : 6031)
 
 #include "config_manager.h"
 #include "license_key.h"
@@ -57,7 +58,7 @@ int main(int argc, char* argv[]) {
 	}
 	// виведення назви бази данних
 	printf("\nYou now working with DB file: %s", DB_path);
-	program_activate = key_generate(license_key);
+	program_activate = key_valid(license_key);
 	program_activate == 0 ? printf("\nYou using full version of programm") : printf("\nLicense key invalid you can`t use advansed programm funcs");
 	// нескінченний цикл де все "крутиться"
 	for (;;) {
@@ -69,6 +70,35 @@ int main(int argc, char* argv[]) {
 		//q - вихід з программи
 		case 113:
 			exit(0);
+
+		//k - зміна ключа
+		case 107:
+			printf("\nInput license key: ");
+			scanf("%d", &license_key);
+			//зміна ключа успішна
+			if (edit_key(cfg_filename, license_key) == 0) {
+				printf("\nNew license key saved\nPlease restart the program");
+				exit(0);
+			}
+			//помилка відкриття файлу чи невірний формат ключа
+			printf("\nEditing key error");
+			break;
+
+		//p - назви бази даних
+		case 112:
+			printf("\nInput name  of DB: ");
+			scanf("%s", DB_path);
+			//зміна ключа успішна
+			if (edit_pathDB(cfg_filename, DB_path) == 0) {
+				printf("\nNew DB path saved\nPlease restart the program");
+				exit(0);
+			}
+			//помилка відкриття файлу чи невірний формат ключа
+			printf("\nEditing DB path error");
+			break;
+
+		default:
+			printf("\n%d", operation);
 		}
 	}
 	return 0;
