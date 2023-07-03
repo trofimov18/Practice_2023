@@ -1,5 +1,5 @@
 ﻿/**
-* @file Practice1.cpp
+* @file Practice2023.cpp
 * @author Приліпко, гр. 515-i, варіант 11
 * @date 3 липня 2023
 * @brief Практика
