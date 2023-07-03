@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <String.h>
 #include <stdlib.h>
+#include <windows.h>
 // вимкнув повідомлення про використання небезпечних функцій з string.h
 #pragma warning(disable : 4996)
 
@@ -28,6 +29,8 @@ int main(int argc, char* argv[]) {
 	char cfg_filename[200];
 	// валідність ключа
 	int program_activate = 1;
+	// код кнопки
+	char operation;
 
 
 	// отримуємо назву
@@ -54,6 +57,16 @@ int main(int argc, char* argv[]) {
 	printf("\nYou now working with DB file: %s\nkey: %d", DB_path, license_key);
 	program_activate = key_generate(license_key);
 	program_activate == 0 ? printf("\nYou using full version of programm") : printf("\nLicense key invalid you can`t use advansed programm funcs");
-
+	// нескінченний цикл де все "крутиться"
+	for (;;) {
+		// отримуємо горячу клавішу (тільки англ розкладка)
+		operation = getch();
+		switch (operation)
+		{
+		//q - вихід з программи
+		case 113:
+			exit(0);
+		}
+	}
 	return 0;
 }
