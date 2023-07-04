@@ -17,6 +17,7 @@
 
 #include "config_manager.h"
 #include "license_key.h"
+#include "db_manager.h"
 
 void hot_keys() {
 	printf("\n q -- exit program\n k -- editing license key\n p -- edit path to BD");
@@ -56,10 +57,18 @@ int main(int argc, char* argv[]) {
 		make_cfg_file(cfg_filename);
 		printf("\n.cfg file created");
 	}
+
+
+	// коректна назва фалйлу
+	DB_path[strlen(DB_path) - 1] = '\0';
 	// виведення назви бази данних
 	printf("\nYou now working with DB file: %s", DB_path);
+
+
 	program_activate = key_valid(license_key);
 	program_activate == 0 ? printf("\nYou using full version of programm") : printf("\nLicense key invalid you can`t use advansed programm funcs");
+
+
 	// нескінченний цикл де все "крутиться"
 	for (;;) {
 		hot_keys();
@@ -70,6 +79,7 @@ int main(int argc, char* argv[]) {
 		//q - вихід з программи
 		case 113:
 			exit(0);
+
 
 		//k - зміна ключа
 		case 107:
@@ -84,6 +94,7 @@ int main(int argc, char* argv[]) {
 			printf("\nEditing key error");
 			break;
 
+
 		//p - назви бази даних
 		case 112:
 			printf("\nInput name  of DB: ");
@@ -96,6 +107,7 @@ int main(int argc, char* argv[]) {
 			//помилка відкриття файлу чи невірний формат ключа
 			printf("\nEditing DB path error");
 			break;
+
 
 		default:
 			printf("\n%d", operation);
