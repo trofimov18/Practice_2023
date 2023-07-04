@@ -46,68 +46,68 @@ PUBLIC int menu() {
             return 0;
         }
         else {
-            printf("\nНе вірна операція. Будь ласка, введіть оперію з вище названих\n");
+            printf("\nГЌГҐ ГўВіГ°Г­Г  Г®ГЇГҐГ°Г Г¶ВіГї. ГЃГіГ¤Гј Г«Г Г±ГЄГ , ГўГўГҐГ¤ВіГІГј Г®ГЇГҐГ°ВіГѕ Г§ ГўГЁГ№ГҐ Г­Г Г§ГўГ Г­ГЁГµ\n");
         }
     }
 }
 PRIVATE int code_exists(int code_num, const char* CurfileName) {
-    // Відкриття файлу для читання
+    // Г‚ВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі Г¤Г«Гї Г·ГЁГІГ Г­Г­Гї
     FILE* f_my = fopen(CurfileName, "a+");
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
-        return 0; // Помилка при відкритті файлу, повертаємо 0
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі.\n");
+        return 0; // ГЏГ®Г¬ГЁГ«ГЄГ  ГЇГ°ГЁ ГўВіГ¤ГЄГ°ГЁГІГІВі ГґГ Г©Г«Гі, ГЇГ®ГўГҐГ°ГІГ ВєГ¬Г® 0
     }
 
-    int exists = 0; // Прапорець для позначення наявності коду товару
+    int exists = 0; // ГЏГ°Г ГЇГ®Г°ГҐГ¶Гј Г¤Г«Гї ГЇГ®Г§Г­Г Г·ГҐГ­Г­Гї Г­Г ГїГўГ­Г®Г±ГІВі ГЄГ®Г¤Гі ГІГ®ГўГ Г°Гі
     struct info* current_info = (struct info*)malloc(sizeof(struct info));
     if (current_info == NULL) {
-        printf("Помилка виділення пам'яті.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўГЁГ¤ВіГ«ГҐГ­Г­Гї ГЇГ Г¬'ГїГІВі.\n");
         fclose(f_my);
-        return 0; // Помилка при виділенні пам'яті, повертаємо 0
+        return 0; // ГЏГ®Г¬ГЁГ«ГЄГ  ГЇГ°ГЁ ГўГЁГ¤ВіГ«ГҐГ­Г­Ві ГЇГ Г¬'ГїГІВі, ГЇГ®ГўГҐГ°ГІГ ВєГ¬Г® 0
     }
 
-    // Перебір записів у файлі
+    // ГЏГҐГ°ГҐГЎВіГ° Г§Г ГЇГЁГ±ВіГў Гі ГґГ Г©Г«Ві
     while (fscanf(f_my, "%d", &(current_info->number)) == 1) {
-        // Перевірка, чи зустрічається введений код товару
+        // ГЏГҐГ°ГҐГўВіГ°ГЄГ , Г·ГЁ Г§ГіГ±ГІГ°ВіГ·Г ВєГІГјГ±Гї ГўГўГҐГ¤ГҐГ­ГЁГ© ГЄГ®Г¤ ГІГ®ГўГ Г°Гі
         if (current_info->number == code_num) {
-            exists = 1; // Код товару знайдений, позначаємо наявність
+            exists = 1; // ГЉГ®Г¤ ГІГ®ГўГ Г°Гі Г§Г­Г Г©Г¤ГҐГ­ГЁГ©, ГЇГ®Г§Г­Г Г·Г ВєГ¬Г® Г­Г ГїГўГ­ВіГ±ГІГј
             break;
         }
 
-        // Пропуск решти рядка
+        // ГЏГ°Г®ГЇГіГ±ГЄ Г°ГҐГёГІГЁ Г°ГїГ¤ГЄГ 
         char c;
         while ((c = fgetc(f_my)) != '\n' && c != EOF);
     }
 
-    fclose(f_my); // Закриття файлу
-    free(current_info); // Звільнення виділеної пам'яті
+    fclose(f_my); // Г‡Г ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі
+    free(current_info); // Г‡ГўВіГ«ГјГ­ГҐГ­Г­Гї ГўГЁГ¤ВіГ«ГҐГ­Г®Вї ГЇГ Г¬'ГїГІВі
 
-    return exists; // Повертаємо значення прапорця наявності
+    return exists; // ГЏГ®ГўГҐГ°ГІГ ВєГ¬Г® Г§Г­Г Г·ГҐГ­Г­Гї ГЇГ°Г ГЇГ®Г°Г¶Гї Г­Г ГїГўГ­Г®Г±ГІВі
 }
 PUBLIC void input(const char* CurfileName) {
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Помилка виділення пам'яті.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўГЁГ¤ВіГ«ГҐГ­Г­Гї ГЇГ Г¬'ГїГІВі.\n");
         return;
     }
 
-    FILE* f_my = fopen(CurfileName, "a");  // Відкриття файлу для читання записів
+    FILE* f_my = fopen(CurfileName, "a");  // Г‚ВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі Г¤Г«Гї Г·ГЁГІГ Г­Г­Гї Г§Г ГЇГЁГ±ВіГў
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі.\n");
         return;
     }
 
     if (code_num == MAX) {
-        printf("База заповнена, додавання неможливе.\n");
+        printf("ГЃГ Г§Г  Г§Г ГЇГ®ГўГ­ГҐГ­Г , Г¤Г®Г¤Г ГўГ Г­Г­Гї Г­ГҐГ¬Г®Г¦Г«ГЁГўГҐ.\n");
         fclose(f_my);
-        free(new_info);  // Звільнення виділеної пам'яті перед поверненням
+        free(new_info);  // Г‡ГўВіГ«ГјГ­ГҐГ­Г­Гї ГўГЁГ¤ВіГ«ГҐГ­Г®Вї ГЇГ Г¬'ГїГІВі ГЇГҐГ°ГҐГ¤ ГЇГ®ГўГҐГ°Г­ГҐГ­Г­ГїГ¬
         return;
     }
 
-    printf("Введіть код товару: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј ГЄГ®Г¤ ГІГ®ГўГ Г°Гі: ");
     while (1) {
         if (scanf_s("%d", &code_num) != 1 || code_num < 0 || code_num >= MAX || code_exists(code_num, CurfileName)) {
-            printf("Помилка: недопустимий номер продукту або такий номер вже використовується. Введіть код товару ще раз: ");
+            printf("ГЏГ®Г¬ГЁГ«ГЄГ : Г­ГҐГ¤Г®ГЇГіГ±ГІГЁГ¬ГЁГ© Г­Г®Г¬ГҐГ° ГЇГ°Г®Г¤ГіГЄГІГі Г ГЎГ® ГІГ ГЄГЁГ© Г­Г®Г¬ГҐГ° ГўГ¦ГҐ ГўГЁГЄГ®Г°ГЁГ±ГІГ®ГўГіВєГІГјГ±Гї. Г‚ГўГҐГ¤ВіГІГј ГЄГ®Г¤ ГІГ®ГўГ Г°Гі Г№ГҐ Г°Г Г§: ");
             while (getchar() != '\n');
         }
         else {
@@ -116,18 +116,18 @@ PUBLIC void input(const char* CurfileName) {
             break;
         }
     }
-    printf("Введіть назву товару: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г­Г Г§ГўГі ГІГ®ГўГ Г°Гі: ");
     fgets(new_info->name, MAX + 1, stdin);
-    new_info->name[strcspn(new_info->name, "\n")] = '\0'; // Видалення символу нового рядка
+    new_info->name[strcspn(new_info->name, "\n")] = '\0'; // Г‚ГЁГ¤Г Г«ГҐГ­Г­Гї Г±ГЁГ¬ГўГ®Г«Гі Г­Г®ГўГ®ГЈГ® Г°ГїГ¤ГЄГ 
 
-    printf("Введіть групу товару: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј ГЈГ°ГіГЇГі ГІГ®ГўГ Г°Гі: ");
     fgets(new_info->group_product, MAX + 1, stdin);
-    new_info->group_product[strcspn(new_info->group_product, "\n")] = '\0'; // Видалення символу нового рядка
+    new_info->group_product[strcspn(new_info->group_product, "\n")] = '\0'; // Г‚ГЁГ¤Г Г«ГҐГ­Г­Гї Г±ГЁГ¬ГўГ®Г«Гі Г­Г®ГўГ®ГЈГ® Г°ГїГ¤ГЄГ 
 
-    printf("Введіть ціну товару: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г¶ВіГ­Гі ГІГ®ГўГ Г°Гі: ");
     while (1) {
         if (scanf_s("%f", &price_num) != 1 || price_num < 0) {
-            printf("Помилка: недопустимий номер продукту або такий номер вже використовується. Введіть код товару ще раз: ");
+            printf("РџРѕРјРёР»РєР°: С†С–РЅР° РЅРµ РјРѕР¶Рµ Р±СѓС‚Рё РІС–РґС”РјРЅР°. Р’РІРµРґС–С‚СЊ С‰Рµ СЂР°Р·: ");
             while (getchar() != '\n');
         }
         else {
@@ -136,31 +136,31 @@ PUBLIC void input(const char* CurfileName) {
             break;
         }
     }
-    printf("Введіть постачальника товару: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј ГЇГ®Г±ГІГ Г·Г Г«ГјГ­ГЁГЄГ  ГІГ®ГўГ Г°Гі: ");
     fgets(new_info->provider, MAX + 1, stdin);
-    new_info->provider[strcspn(new_info->provider, "\n")] = '\0'; // Видалення символу нового рядка
+    new_info->provider[strcspn(new_info->provider, "\n")] = '\0'; // Г‚ГЁГ¤Г Г«ГҐГ­Г­Гї Г±ГЁГ¬ГўГ®Г«Гі Г­Г®ГўГ®ГЈГ® Г°ГїГ¤ГЄГ 
 
     new_info->next = first;
     first = new_info;
 
     fprintf(f_my, "%d %s %s %.2f %s\n", new_info->number, new_info->name, new_info->group_product, new_info->price, new_info->provider);
 
-    fclose(f_my);  // Закриття файлу
+    fclose(f_my);  // Г‡Г ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі
 }
 PUBLIC void print(const char* CurfileName) {
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Помилка виділення пам'яті.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўГЁГ¤ВіГ«ГҐГ­Г­Гї ГЇГ Г¬'ГїГІВі.\n");
         return;
     }
 
-    FILE* f_my = fopen(CurfileName, "a+");  // Відкриття файлу для читання записів
+    FILE* f_my = fopen(CurfileName, "a+");  // Г‚ВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі Г¤Г«Гї Г·ГЁГІГ Г­Г­Гї Г§Г ГЇГЁГ±ВіГў
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі.\n");
         return;
     }
 
-    printf("| Код товару |   Назва товару  |  Група товару  | Ціна товару | Постачальник товару |\n");
+    printf("| ГЉГ®Г¤ ГІГ®ГўГ Г°Гі |   ГЌГ Г§ГўГ  ГІГ®ГўГ Г°Гі  |  ГѓГ°ГіГЇГ  ГІГ®ГўГ Г°Гі  | Г–ВіГ­Г  ГІГ®ГўГ Г°Гі | ГЏГ®Г±ГІГ Г·Г Г«ГјГ­ГЁГЄ ГІГ®ГўГ Г°Гі |\n");
     printf("+-----------------------------------------------------------------------------------+\n");
     while (fscanf(f_my, "%d %s %s %f %s", &new_info->number, &new_info->name, &new_info->group_product, &new_info->price, &new_info->provider) != EOF) {
         printf("|%11d | %15s | %14s | %11.2f | %18s  |\n", new_info->number, new_info->name, new_info->group_product, new_info->price, new_info->provider);
@@ -169,30 +169,30 @@ PUBLIC void print(const char* CurfileName) {
     }
     printf("+-----------------------------------------------------------------------------------+\n");
 
-    fclose(f_my);  // Закриття файлу
+    fclose(f_my);  // Г‡Г ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі
 
 }
 PUBLIC void delet(const char* CurfileName) {
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Помилка виділення пам'яті.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўГЁГ¤ВіГ«ГҐГ­Г­Гї ГЇГ Г¬'ГїГІВі.\n");
         return;
     }
 
     int s;
-    printf("Введіть номер продукту для видалення: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®Г¬ГҐГ° ГЇГ°Г®Г¤ГіГЄГІГі Г¤Г«Гї ГўГЁГ¤Г Г«ГҐГ­Г­Гї: ");
     scanf_s("%d", &s);
 
-    FILE* f_my = fopen(CurfileName, "r");  // Відкриття файлу для читання записів
+    FILE* f_my = fopen(CurfileName, "r");  // Г‚ВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі Г¤Г«Гї Г·ГЁГІГ Г­Г­Гї Г§Г ГЇГЁГ±ВіГў
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі.\n");
         free(new_info);
         return;
     }
 
-    FILE* f_temp = fopen("temp.txt", "w");  // Відкриття тимчасового файлу для запису
+    FILE* f_temp = fopen("temp.txt", "w");  // Г‚ВіГ¤ГЄГ°ГЁГІГІГї ГІГЁГ¬Г·Г Г±Г®ГўГ®ГЈГ® ГґГ Г©Г«Гі Г¤Г«Гї Г§Г ГЇГЁГ±Гі
     if (f_temp == NULL) {
-        printf("Помилка відкриття тимчасового файлу.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўВіГ¤ГЄГ°ГЁГІГІГї ГІГЁГ¬Г·Г Г±Г®ГўГ®ГЈГ® ГґГ Г©Г«Гі.\n");
         free(new_info);
         fclose(f_my);
         return;
@@ -206,13 +206,13 @@ PUBLIC void delet(const char* CurfileName) {
     }
 
     free(new_info);
-    fclose(f_my);    // Закриття файлів
+    fclose(f_my);    // Г‡Г ГЄГ°ГЁГІГІГї ГґГ Г©Г«ВіГў
     fclose(f_temp);
 
-    remove(CurfileName);      // Видалення початкового файлу
-    rename("temp.txt", CurfileName);  // Перейменування тимчасового файлу
+    remove(CurfileName);      // Г‚ГЁГ¤Г Г«ГҐГ­Г­Гї ГЇГ®Г·Г ГІГЄГ®ГўГ®ГЈГ® ГґГ Г©Г«Гі
+    rename("temp.txt", CurfileName);  // ГЏГҐГ°ГҐГ©Г¬ГҐГ­ГіГўГ Г­Г­Гї ГІГЁГ¬Г·Г Г±Г®ГўГ®ГЈГ® ГґГ Г©Г«Гі
 
-    printf("Запис з номером %d успішно видалений.\n", s);
+    printf("Г‡Г ГЇГЁГ± Г§ Г­Г®Г¬ГҐГ°Г®Г¬ %d ГіГ±ГЇВіГёГ­Г® ГўГЁГ¤Г Г«ГҐГ­ГЁГ©.\n", s);
 }
 PUBLIC void change(const char* CurfileName) {
     int col, cod;
@@ -220,33 +220,33 @@ PUBLIC void change(const char* CurfileName) {
     struct info* first = NULL;
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Помилка виділення пам'яті.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўГЁГ¤ВіГ«ГҐГ­Г­Гї ГЇГ Г¬'ГїГІВі.\n");
         return;
     }
 
-    FILE* f_my = fopen(CurfileName, "r");  // Відкриття файлу для читання записів
+    FILE* f_my = fopen(CurfileName, "r");  // Г‚ВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі Г¤Г«Гї Г·ГЁГІГ Г­Г­Гї Г§Г ГЇГЁГ±ВіГў
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі.\n");
         return;
     }
 
-    FILE* f_temp = fopen("temp.txt", "w");  // Відкриття тимчасового файлу для запису
+    FILE* f_temp = fopen("temp.txt", "w");  // Г‚ВіГ¤ГЄГ°ГЁГІГІГї ГІГЁГ¬Г·Г Г±Г®ГўГ®ГЈГ® ГґГ Г©Г«Гі Г¤Г«Гї Г§Г ГЇГЁГ±Гі
 col:
-    printf("Введіть номер стовпця: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®Г¬ГҐГ° Г±ГІГ®ГўГЇГ¶Гї: ");
     scanf_s("%d", &col);
 
     switch (col) {
     case 1:
-        printf("Введіть номер товару: ");
+        printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®Г¬ГҐГ° ГІГ®ГўГ Г°Гі: ");
         scanf_s("%d", &cod);
         while (getchar() != '\n');
 
         while (fscanf(f_my, "%d %s %s %f %s", &new_info->number, new_info->name, new_info->group_product, &new_info->price, new_info->provider) != EOF) {
             if (new_info->number == cod) {
-                printf("Введіть новий номер товару: ");
+                printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®ГўГЁГ© Г­Г®Г¬ГҐГ° ГІГ®ГўГ Г°Гі: ");
                 while (1) {
                     if (scanf_s("%d", &code_num) != 1 || code_num < 0 || code_num >= MAX || code_exists(code_num, CurfileName)) {
-                        printf("Помилка: недопустимий номер продукту або такий номер вже використовується. Введіть код товару ще раз: ");
+                        printf("ГЏГ®Г¬ГЁГ«ГЄГ : Г­ГҐГ¤Г®ГЇГіГ±ГІГЁГ¬ГЁГ© Г­Г®Г¬ГҐГ° ГЇГ°Г®Г¤ГіГЄГІГі Г ГЎГ® ГІГ ГЄГЁГ© Г­Г®Г¬ГҐГ° ГўГ¦ГҐ ГўГЁГЄГ®Г°ГЁГ±ГІГ®ГўГіВєГІГјГ±Гї. Г‚ГўГҐГ¤ВіГІГј ГЄГ®Г¤ ГІГ®ГўГ Г°Гі Г№ГҐ Г°Г Г§: ");
                         while (getchar() != '\n');
                     }
                     else {
@@ -262,14 +262,14 @@ col:
 
     case 2: {
         char name2[MAX + 1];
-        printf("Введіть номер товару: ");
+        printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®Г¬ГҐГ° ГІГ®ГўГ Г°Гі: ");
         scanf_s("%d", &cod);
         while (getchar() != '\n');
 
         while (fscanf(f_my, "%d %s %s %f %s", &new_info->number, &new_info->name, &new_info->group_product, &new_info->price, &new_info->provider) != EOF) {
 
             if (new_info->number == cod) {
-                printf("Введіть нову назву товару: ");
+                printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®ГўГі Г­Г Г§ГўГі ГІГ®ГўГ Г°Гі: ");
                 fgets(name2, MAX + 1, stdin);
                 strcpy(new_info->name, name2);
                 new_info->name[strcspn(new_info->name, "\n")] = '\0';
@@ -282,14 +282,14 @@ col:
     }break;
     case 3: {
         char name2[MAX + 1];
-        printf("Введіть номер товару: ");
+        printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®Г¬ГҐГ° ГІГ®ГўГ Г°Гі: ");
         scanf_s("%d", &cod);
         while (getchar() != '\n');
 
         while (fscanf(f_my, "%d %s %s %f %s", &new_info->number, &new_info->name, &new_info->group_product, &new_info->price, &new_info->provider) != EOF) {
 
             if (new_info->number == cod) {
-                printf("Введіть нову групу товару: ");
+                printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®ГўГі ГЈГ°ГіГЇГі ГІГ®ГўГ Г°Гі: ");
                 fgets(name2, MAX + 1, stdin);
                 strcpy(new_info->group_product, name2);
                 new_info->group_product[strcspn(new_info->group_product, "\n")] = '\0';
@@ -302,7 +302,7 @@ col:
     }break;
     case 4: {
         float num_price_2;
-        printf("Введіть номер товару: ");
+        printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®Г¬ГҐГ° ГІГ®ГўГ Г°Гі: ");
         scanf_s("%d", &cod);
         while (getchar() != '\n');
 
@@ -310,10 +310,10 @@ col:
 
 
             if (new_info->number == cod) {
-                printf("Введіть нову ціну: ");
+                printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®ГўГі Г¶ВіГ­Гі: ");
                 while (1) {
                     if (scanf_s("%f", &num_price_2) != 1 || num_price_2 < 0) {
-                        printf("Помилка: недопустимий номер продукту або такий номер вже використовується. Введіть код товару ще раз: ");
+                        printf("ГЏГ®Г¬ГЁГ«ГЄГ : Г­ГҐГ¤Г®ГЇГіГ±ГІГЁГ¬ГЁГ© Г­Г®Г¬ГҐГ° ГЇГ°Г®Г¤ГіГЄГІГі Г ГЎГ® ГІГ ГЄГЁГ© Г­Г®Г¬ГҐГ° ГўГ¦ГҐ ГўГЁГЄГ®Г°ГЁГ±ГІГ®ГўГіВєГІГјГ±Гї. Г‚ГўГҐГ¤ВіГІГј ГЄГ®Г¤ ГІГ®ГўГ Г°Гі Г№ГҐ Г°Г Г§: ");
                         while (getchar() != '\n');
                         break;
                     }
@@ -335,7 +335,7 @@ col:
     }break;
     case 5: {
         char name2[MAX + 1];
-        printf("Введіть номер товару: ");
+        printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®Г¬ГҐГ° ГІГ®ГўГ Г°Гі: ");
         scanf_s("%d", &cod);
         while (getchar() != '\n');
 
@@ -343,7 +343,7 @@ col:
 
 
             if (new_info->number == cod) {
-                printf("Введіть нового постачальника товару: ");
+                printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®ГўГ®ГЈГ® ГЇГ®Г±ГІГ Г·Г Г«ГјГ­ГЁГЄГ  ГІГ®ГўГ Г°Гі: ");
                 fgets(name2, MAX + 1, stdin);
                 strcpy(new_info->provider, name2);
                 new_info->provider[strcspn(new_info->provider, "\n")] = '\0';
@@ -355,41 +355,41 @@ col:
 
     }break;
     default:
-        printf("Неправильний номер стовпця.\n");
+        printf("ГЌГҐГЇГ°Г ГўГЁГ«ГјГ­ГЁГ© Г­Г®Г¬ГҐГ° Г±ГІГ®ГўГЇГ¶Гї.\n");
         goto col;
         break;
     }
 
     free(new_info);
-    fclose(f_my);    // Закриття файлів
+    fclose(f_my);    // Г‡Г ГЄГ°ГЁГІГІГї ГґГ Г©Г«ВіГў
     fclose(f_temp);
 
-    remove(CurfileName);      // Видалення початкового файлу
-    rename("temp.txt", CurfileName);  // Перейменування тимчасового файлу
+    remove(CurfileName);      // Г‚ГЁГ¤Г Г«ГҐГ­Г­Гї ГЇГ®Г·Г ГІГЄГ®ГўГ®ГЈГ® ГґГ Г©Г«Гі
+    rename("temp.txt", CurfileName);  // ГЏГҐГ°ГҐГ©Г¬ГҐГ­ГіГўГ Г­Г­Гї ГІГЁГ¬Г·Г Г±Г®ГўГ®ГЈГ® ГґГ Г©Г«Гі
 
-    printf("Зміна даних успішно виконана.\n");
+    printf("Г‡Г¬ВіГ­Г  Г¤Г Г­ГЁГµ ГіГ±ГЇВіГёГ­Г® ГўГЁГЄГ®Г­Г Г­Г .\n");
 
 
 }
 PUBLIC void search_by_supplier(const char* CurfileName) {
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Помилка виділення пам'яті.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўГЁГ¤ВіГ«ГҐГ­Г­Гї ГЇГ Г¬'ГїГІВі.\n");
         return;
     }
     char name1[MAX + 1];
 
     FILE* f_my = fopen(CurfileName, "a+");
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі.\n");
         return;
     }
 
-    printf("Введіть назву постачальника: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г­Г Г§ГўГі ГЇГ®Г±ГІГ Г·Г Г«ГјГ­ГЁГЄГ : ");
     scanf_s("%s", name1, MAX);
     while (getchar() != '\n');
 
-    printf("| Код товару |   Назва товару  |  Група товару  | Ціна товару | Постачальник товару |\n");
+    printf("| ГЉГ®Г¤ ГІГ®ГўГ Г°Гі |   ГЌГ Г§ГўГ  ГІГ®ГўГ Г°Гі  |  ГѓГ°ГіГЇГ  ГІГ®ГўГ Г°Гі  | Г–ВіГ­Г  ГІГ®ГўГ Г°Гі | ГЏГ®Г±ГІГ Г·Г Г«ГјГ­ГЁГЄ ГІГ®ГўГ Г°Гі |\n");
     printf("+-----------------------------------------------------------------------------------+\n");
     while (fscanf(f_my, "%d %s %s %f %s", &new_info->number, &new_info->name,
         &new_info->group_product, &new_info->price, &new_info->provider) != EOF) {
@@ -410,20 +410,20 @@ PUBLIC void search_by_supplier(const char* CurfileName) {
 }
 PUBLIC void low_prices(const char* CurfileName) {
     float low_price;
-    printf("Введіть бажану ціну: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј ГЎГ Г¦Г Г­Гі Г¶ВіГ­Гі: ");
     scanf_s("%f", &low_price);
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Помилка виділення пам'яті.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўГЁГ¤ВіГ«ГҐГ­Г­Гї ГЇГ Г¬'ГїГІВі.\n");
         return;
     }
     FILE* f_my = fopen(CurfileName, "a+");
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі.\n");
         return;
     }
 
-    printf("| Код товару |   Назва товару  |  Група товару  | Ціна товару | Постачальник товару |\n");
+    printf("| ГЉГ®Г¤ ГІГ®ГўГ Г°Гі |   ГЌГ Г§ГўГ  ГІГ®ГўГ Г°Гі  |  ГѓГ°ГіГЇГ  ГІГ®ГўГ Г°Гі  | Г–ВіГ­Г  ГІГ®ГўГ Г°Гі | ГЏГ®Г±ГІГ Г·Г Г«ГјГ­ГЁГЄ ГІГ®ГўГ Г°Гі |\n");
     printf("+-----------------------------------------------------------------------------------+\n");
     while (fscanf(f_my, "%d %s %s %f %s", &new_info->number, &new_info->name, &new_info->group_product, &new_info->price, &new_info->provider) != EOF) {
         if (low_price > new_info->price) {
@@ -464,7 +464,7 @@ PUBLIC void generation_key() {
 
     FILE* f_my_key = fopen("infopractice.cfg", "a+");
     if (f_my_key == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі.\n");
         return;
     }
 
@@ -480,28 +480,28 @@ PUBLIC void generation_key() {
     fclose(f_my_key);
 }
 PUBLIC bool is_valid_key() {
-    // Відкриття файлу для зчитування ключа 
+    // Г‚ВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі Г¤Г«Гї Г§Г·ГЁГІГіГўГ Г­Г­Гї ГЄГ«ГѕГ·Г  
     FILE* f_my_key = fopen("infopractice.cfg", "a+");
     if (f_my_key == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі.\n");
         return false;
     }
 
-    // Зчитування ключа з файлу
+    // Г‡Г·ГЁГІГіГўГ Г­Г­Гї ГЄГ«ГѕГ·Г  Г§ ГґГ Г©Г«Гі
     char stored_key[KEY_LENGTH + 1];
     fgets(stored_key, sizeof(stored_key), f_my_key);
 
-    // Видалення символу нового рядка, який може бути прочитаний з файлу
+    // Г‚ГЁГ¤Г Г«ГҐГ­Г­Гї Г±ГЁГ¬ГўГ®Г«Гі Г­Г®ГўГ®ГЈГ® Г°ГїГ¤ГЄГ , ГїГЄГЁГ© Г¬Г®Г¦ГҐ ГЎГіГІГЁ ГЇГ°Г®Г·ГЁГІГ Г­ГЁГ© Г§ ГґГ Г©Г«Гі
     stored_key[strcspn(stored_key, "\n")] = '\0';
 
-    // Закриття файлу
+    // Г‡Г ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі
     fclose(f_my_key);
 
-    // Перевірка довжини ключа
+    // ГЏГҐГ°ГҐГўВіГ°ГЄГ  Г¤Г®ГўГ¦ГЁГ­ГЁ ГЄГ«ГѕГ·Г 
     if (strlen(stored_key) != KEY_LENGTH)
         return false;
 
-    // Перевірка допустимих символів
+    // ГЏГҐГ°ГҐГўВіГ°ГЄГ  Г¤Г®ГЇГіГ±ГІГЁГ¬ГЁГµ Г±ГЁГ¬ГўГ®Г«ВіГў
     char sixteen_num[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
     for (int i = 0; i < KEY_LENGTH; i++) {
         bool valid_char = false;
@@ -518,29 +518,29 @@ PUBLIC bool is_valid_key() {
     return true;
 }
 PUBLIC void file_change_name(const char* CurfileName) {
-    char NewNameFile[MAX_FILENAME_LENGTH]; // Замінити на потрібне початкове ім'я файлу
+    char NewNameFile[MAX_FILENAME_LENGTH]; // Г‡Г Г¬ВіГ­ГЁГІГЁ Г­Г  ГЇГ®ГІГ°ВіГЎГ­ГҐ ГЇГ®Г·Г ГІГЄГ®ГўГҐ ВіГ¬'Гї ГґГ Г©Г«Гі
 
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Помилка виділення пам'яті.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўГЁГ¤ВіГ«ГҐГ­Г­Гї ГЇГ Г¬'ГїГІВі.\n");
         return;
     }
 
     while (getchar() != '\n');
-    printf("Введіть нову назву файла: ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г­Г®ГўГі Г­Г Г§ГўГі ГґГ Г©Г«Г : ");
     fgets(NewNameFile, MAX_FILENAME_LENGTH, stdin);
     NewNameFile[strcspn(NewNameFile, "\n")] = '\0';
 
-    FILE* f_my = fopen(CurfileName, "r");  // Відкриття файлу для читання записів
+    FILE* f_my = fopen(CurfileName, "r");  // Г‚ВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі Г¤Г«Гї Г·ГЁГІГ Г­Г­Гї Г§Г ГЇГЁГ±ВіГў
     if (f_my == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўВіГ¤ГЄГ°ГЁГІГІГї ГґГ Г©Г«Гі.\n");
         free(new_info);
         return;
     }
 
     FILE* f_temp = fopen(NewNameFile, "w+");
     if (f_temp == NULL) {
-        printf("Помилка відкриття тимчасового файлу.\n");
+        printf("ГЏГ®Г¬ГЁГ«ГЄГ  ГўВіГ¤ГЄГ°ГЁГІГІГї ГІГЁГ¬Г·Г Г±Г®ГўГ®ГЈГ® ГґГ Г©Г«Гі.\n");
         free(new_info);
         fclose(f_my);
         return;
@@ -552,9 +552,9 @@ PUBLIC void file_change_name(const char* CurfileName) {
     }
 
     free(new_info);
-    fclose(f_my);    // Закриття файлів
+    fclose(f_my);    // Г‡Г ГЄГ°ГЁГІГІГї ГґГ Г©Г«ВіГў
     fclose(f_temp);
-    remove(CurfileName);  // Видалення початкового файлу
+    remove(CurfileName);  // Г‚ГЁГ¤Г Г«ГҐГ­Г­Гї ГЇГ®Г·Г ГІГЄГ®ГўГ®ГЈГ® ГґГ Г©Г«Гі
 }
 PUBLIC void exportCSV(const char* CurfileName) {
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
@@ -562,20 +562,20 @@ PUBLIC void exportCSV(const char* CurfileName) {
 
 
     char csv[MAX_FILENAME_LENGTH];
-    printf("Введіть назву CSV файла: Приклад 'data.csv' -  ");
+    printf("Г‚ГўГҐГ¤ВіГІГј Г­Г Г§ГўГі CSV ГґГ Г©Г«Г : ГЏГ°ГЁГЄГ«Г Г¤ 'data.csv' -  ");
     while (getchar() != '\n');
     fgets(csv, MAX_FILENAME_LENGTH, stdin);
     csv[strcspn(csv, "\n")] = '\0';
 
     FILE* f_my = fopen(CurfileName, "r");
     if (f_my == NULL) {
-        printf("Не вдалося відкрити файл для зчитування.\n");
+        printf("ГЌГҐ ГўГ¤Г Г«Г®Г±Гї ГўВіГ¤ГЄГ°ГЁГІГЁ ГґГ Г©Г« Г¤Г«Гї Г§Г·ГЁГІГіГўГ Г­Г­Гї.\n");
         return;
     }
 
     FILE* file = fopen(csv, "w+");
     if (file == NULL) {
-        printf("Не вдалося відкрити файл для запису csv.\n");
+        printf("ГЌГҐ ГўГ¤Г Г«Г®Г±Гї ГўВіГ¤ГЄГ°ГЁГІГЁ ГґГ Г©Г« Г¤Г«Гї Г§Г ГЇГЁГ±Гі csv.\n");
         fclose(f_my);
         return;
     }
@@ -596,6 +596,6 @@ PUBLIC void exportCSV(const char* CurfileName) {
     fclose(file);
     fclose(f_my);
 
-    printf("Дані успішно експортовано у файл з розширенням csv -  %s\n", csv);
+    printf("Г„Г Г­Ві ГіГ±ГЇВіГёГ­Г® ГҐГЄГ±ГЇГ®Г°ГІГ®ГўГ Г­Г® Гі ГґГ Г©Г« Г§ Г°Г®Г§ГёГЁГ°ГҐГ­Г­ГїГ¬ csv -  %s\n", csv);
 
 }
