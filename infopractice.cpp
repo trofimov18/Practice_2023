@@ -87,28 +87,29 @@ PRIVATE int code_exists(int code_num, const char* CurfileName) {
 PUBLIC void input(const char* CurfileName) {
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Ïîìèëêà âèä³ëåííÿ ïàì'ÿò³.\n");
+        printf("Помилка виділення пам'яті.\n");
         return;
     }
 
-    FILE* f_my = fopen(CurfileName, "a");  // Â³äêðèòòÿ ôàéëó äëÿ ÷èòàííÿ çàïèñ³â
+    FILE* f_my = fopen(CurfileName, "a");  // Відкриття файлу для читання записів
     if (f_my == NULL) {
-        printf("Ïîìèëêà â³äêðèòòÿ ôàéëó.\n");
+        printf("Помилка відкриття файлу.\n");
         return;
     }
 
     if (code_num == MAX) {
-        printf("Áàçà çàïîâíåíà, äîäàâàííÿ íåìîæëèâå.\n");
+        printf("База заповнена, додавання неможливе.\n");
         fclose(f_my);
-        free(new_info);  // Çâ³ëüíåííÿ âèä³ëåíî¿ ïàì'ÿò³ ïåðåä ïîâåðíåííÿì
+        free(new_info);  // Звільнення виділеної пам'яті перед поверненням
         return;
     }
 
-    printf("Ââåä³òü êîä òîâàðó: ");
+    printf("Введіть код товару: ");
     while (1) {
         if (scanf_s("%d", &code_num) != 1 || code_num < 0 || code_num >= MAX || code_exists(code_num, CurfileName)) {
-            printf("Ïîìèëêà: íåäîïóñòèìèé íîìåð ïðîäóêòó àáî òàêèé íîìåð âæå âèêîðèñòîâóºòüñÿ. Ââåä³òü êîä òîâàðó ùå ðàç: ");
+            printf("Помилка: недопустимий номер продукту або такий номер вже використовується. Введіть код товару ще раз: ");
             while (getchar() != '\n');
+            break;
         }
         else {
             new_info->number = code_num;
@@ -116,19 +117,20 @@ PUBLIC void input(const char* CurfileName) {
             break;
         }
     }
-    printf("Ââåä³òü íàçâó òîâàðó: ");
+    printf("Введіть назву товару: ");
     fgets(new_info->name, MAX + 1, stdin);
-    new_info->name[strcspn(new_info->name, "\n")] = '\0'; // Âèäàëåííÿ ñèìâîëó íîâîãî ðÿäêà
+    new_info->name[strcspn(new_info->name, "\n")] = '\0'; // Видалення символу нового рядка
 
-    printf("Ââåä³òü ãðóïó òîâàðó: ");
+    printf("Введіть групу товару: ");
     fgets(new_info->group_product, MAX + 1, stdin);
-    new_info->group_product[strcspn(new_info->group_product, "\n")] = '\0'; // Âèäàëåííÿ ñèìâîëó íîâîãî ðÿäêà
+    new_info->group_product[strcspn(new_info->group_product, "\n")] = '\0'; // Видалення символу нового рядка
 
-    printf("Ââåä³òü ö³íó òîâàðó: ");
+    printf("Введіть ціну товару: ");
     while (1) {
         if (scanf_s("%f", &price_num) != 1 || price_num < 0) {
             printf("Помилка: ціна не може бути відємна. Введіть ще раз: ");
             while (getchar() != '\n');
+            break;
         }
         else {
             new_info->price = price_num;
@@ -136,16 +138,16 @@ PUBLIC void input(const char* CurfileName) {
             break;
         }
     }
-    printf("Ââåä³òü ïîñòà÷àëüíèêà òîâàðó: ");
+    printf("Введіть постачальника товару: ");
     fgets(new_info->provider, MAX + 1, stdin);
-    new_info->provider[strcspn(new_info->provider, "\n")] = '\0'; // Âèäàëåííÿ ñèìâîëó íîâîãî ðÿäêà
+    new_info->provider[strcspn(new_info->provider, "\n")] = '\0'; // Видалення символу нового рядка
 
     new_info->next = first;
     first = new_info;
 
     fprintf(f_my, "%d %s %s %.2f %s\n", new_info->number, new_info->name, new_info->group_product, new_info->price, new_info->provider);
 
-    fclose(f_my);  // Çàêðèòòÿ ôàéëó
+    fclose(f_my);  // Закриття файлу
 }
 PUBLIC void print(const char* CurfileName) {
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
