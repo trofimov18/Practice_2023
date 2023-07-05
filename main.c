@@ -190,6 +190,41 @@ int main(int argc, char* argv[]) {
 	
 			break;
 
+			// d - delete
+		case 100:
+			//system("cls");
+			// запрошення до вводу айді який треба видалити
+			printf("\n Enter ID of contact that you want to delete: ");
+			scanf_s("%u", &for_id);
+
+			// зчитуємо всі значення
+			read_database_file(DB_path, &head);
+
+			// перебираємо вся значення
+			while (head != NULL) {
+				// якщо запис з таким айді є
+				if (head->id == for_id) {
+
+					struct Person modified_person;
+					// Заповнення зміненої структури старими данними
+					modified_person.id = for_id;
+					// але взводимо прапорець що запис видалено
+					modified_person.deleted = 1;
+					strcpy(modified_person.name_lastname, head->name_lastname);
+					modified_person.birtday = head->birtday;
+					strcpy(modified_person.phone, head->phone);
+					modified_person.telegram = head->telegram;
+					modified_person.next = NULL;
+					printf("\n%s - deleted\n", modified_person.name_lastname);
+					// оновлюємо запис
+					update_contact(DB_path, for_id, &modified_person);
+
+					break;
+				}
+				// наступне значення
+				head = head->next;
+			}
+			break;
 
 		default:
 			printf("\n%d", operation);
