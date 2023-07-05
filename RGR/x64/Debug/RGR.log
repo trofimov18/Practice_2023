@@ -1,0 +1,6 @@
+﻿  RGR.c
+C:\Users\uajsh\source\repos\RGR\RGR\RGR.c(10,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+C:\Users\uajsh\source\repos\RGR\modules\modules.c(197,28): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Users\uajsh\source\repos\RGR\modules\modules.c(431,11): warning C4244: функция: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\uajsh\source\repos\RGR\RGR\RGR.c(180,34): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  RGR.vcxproj -> C:\Users\uajsh\source\repos\RGR\x64\Debug\RGR.exe
