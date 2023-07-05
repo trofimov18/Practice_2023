@@ -22,7 +22,7 @@
 
 
 void hot_keys() {
-	printf("\n l -- show list of contacts\n n -- add new contact\n d -- delete contact\n e -- edit contact\n\n t -- show list of contacts without telegram\n\n k -- editing license key\n p -- edit path to BD\n\n q -- exit program");
+	printf("\n l -- show list of contacts\n n -- add new contact\n d -- delete contact\n e -- edit contact\n\n t -- show list of contacts without telegram\n m -- show contacts witch birthday in chosen month\n\n k -- editing license key\n p -- edit path to BD\n\n q -- exit program");
 }
 
 
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
 	char fone[15] = "";
 	int bith = 0;
 	int tg = 0;
-
+	int month;
 	// ініціалізіція першого елементу
 	struct Person* head = NULL;
 
@@ -155,12 +155,29 @@ int main(int argc, char* argv[]) {
 			// очищуємо консоль
 			system("cls");
 			if (program_activate == 0) {
-				// виводимо всі контакти
-				printf("\n Full list of contacts");
+				// виводимо контакти
+				printf("\n List of contacts without telegram");
 				read_database_file(DB_path, &head);
 				pretty_output_base_telegram(&head);
 			}
 			else printf("\n Sorry you can`t use this func, please enter valid license key");
+			break;
+
+
+			//m виведення списку контактів
+		case 109:
+			// очищуємо консоль
+			
+			if (program_activate == 0) {
+				printf("\n Input month for showing this contacts (1-12): ");
+				scanf("%d", &month);
+				system("cls");
+				// виводимо контакти
+				printf("\n List of contacts with birthday in that month");
+				read_database_file(DB_path, &head);
+				pretty_output_base_month(&head, month);
+			}
+			else { system("cls"); printf("\n Sorry you can`t use this func, please enter valid license key");}
 			break;
 
 
@@ -236,6 +253,7 @@ int main(int argc, char* argv[]) {
 			else {
 				update_contact(DB_path, for_id, &new_person);
 			}
+			system("cls");
 			break;
 
 			// d - delete

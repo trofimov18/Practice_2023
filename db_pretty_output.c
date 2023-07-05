@@ -42,3 +42,22 @@ void pretty_output_base_telegram(struct node** head) {
 	}
 	printf("+----+--------------------------------------------------+---------------+-------------+----------+\n");
 }
+
+
+// вивід контактів в даному місяці народження (мінімально відрізняється від функції вище, але зручніше було зробити окрему функцію)
+void pretty_output_base_month(struct node** head, int month) {
+	struct Person* current = *head;
+	printf("\n+----+--------------------------------------------------+---------------+-------------+----------+\n");
+	printf("| id |                       Name                       |     Phone     |   Birtday   | Telegram |\n");
+	while (current != NULL) {
+		// перевірка на місяць
+		if (current->deleted == 0 && (((current->birtday - (current->birtday / 1000000) * 1000000) - current->birtday % 10000) / 10000) == month) {
+			printf("|%4u|%-50s|%-15s| %02d.%02d.%4d  |", current->id, current->name_lastname,
+				current->phone, current->birtday / 1000000, ((current->birtday - (current->birtday / 1000000) * 1000000) - current->birtday % 10000) / 10000,
+				current->birtday % 10000);
+			current->telegram == 1 ? printf("     +    |\n") : printf("     -    |\n");
+		}
+		current = current->next;
+	}
+	printf("+----+--------------------------------------------------+---------------+-------------+----------+\n");
+}
