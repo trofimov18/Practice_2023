@@ -22,7 +22,7 @@
 
 
 void hot_keys() {
-	printf("\n q -- exit program\n k -- editing license key\n p -- edit path to BD\n l -- show list of contacts\n n -- add new contact\n d -- delete contact");
+	printf("\n l -- show list of contacts\n n -- add new contact\n d -- delete contact\n e -- edit contact\n\n k -- editing license key\n p -- edit path to BD\n\n q -- exit program");
 }
 
 
@@ -224,6 +224,96 @@ int main(int argc, char* argv[]) {
 				// наступне значення
 				head = head->next;
 			}
+			break;
+
+			// e edit
+		case 101:
+			//system("cls");
+			// запрощення до вводу айді яке потрібно редагувати
+			printf("\n Enter ID of contact that you want to edit: ");
+			scanf_s("%u", &for_id);
+
+			// зчитуємо всі значення
+			read_database_file(DB_path, &head);
+
+			// перебираємо вся значення
+			while (head != NULL) {
+				// якщо контакт з тиким айді є
+				if (head->id == for_id) {
+
+					struct Person modified_person;
+					// Заповнення зміненої структури старими значеннями
+					modified_person.id = for_id;
+					modified_person.deleted = 0;
+					strcpy(modified_person.name_lastname, head->name_lastname);
+					modified_person.birtday = head->birtday;
+					strcpy(modified_person.phone, head->phone);
+					modified_person.telegram = head->telegram;
+					modified_person.next = NULL;
+					printf("\n%s\n", modified_person.name_lastname);
+
+					// запрошення до вибору що саме будемо змінювати
+					printf("\nwhat you want to edit n - name, b - birthday, p - phone, t - telegram: ");
+					char edit_choose;
+					// отримуємо користувацький вибір
+					edit_choose = getch();
+					switch (edit_choose)
+					{
+						// n name
+					case 110:
+						// отримуємо нове ім'я
+						printf("\n What`s name of new contact:\n");
+
+						gets(name);
+						if (strlen(name) == 0) gets(name);
+
+						// записуємо нове ім'я до структури
+						strcpy(modified_person.name_lastname, name);
+						break;
+
+						// p phone
+					case 112:
+						// зчитуємо телефон
+						printf("\n What`s phone number: ");
+						gets(fone);
+						gets(fone);
+
+						// записуємо новий номер телефону до структури
+						strcpy(modified_person.phone, fone);
+						break;
+						// b - birthday
+					case 98:
+						// зчитуємо дату народження
+						printf("\n What`s birtday (DDMMYYYY format): ");
+						scanf_s("%d", &bith);
+
+						// записуємо нову дату народження до структури
+						modified_person.birtday = bith;
+						break;
+
+						// t - telegram
+					case 116:
+						// зчитуємо наявність телеграму
+						printf("\n Has this contact telegram? (1 - yes/0 - no): ");
+						scanf_s("%d", &tg);
+
+						// записуємо нове значення
+						modified_person.telegram = tg;
+						break;
+
+					default:
+						break;
+					}
+
+					// редагуємо структуру новими данними
+					update_contact(DB_path, for_id, &modified_person);
+
+					break;
+				}
+				// наступний контакт
+				head = head->next;
+			}
+			system("cls");
 			break;
 
 		default:
