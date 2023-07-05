@@ -1,0 +1,2 @@
+KEY = 6048-0B0F-3A94-0912
+BD = mybd.dat

@@ -1,0 +1,4 @@
+﻿  RGR.cpp
+F:\source\RGR\RGR\key_and_functions.h(31,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+F:\source\RGR\RGR\key_and_functions.h(403,40): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  RGR.vcxproj -> F:\source\RGR\x64\Debug\RGR.exe
