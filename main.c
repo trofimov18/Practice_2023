@@ -40,6 +40,9 @@ int main(int argc, char* argv[]) {
 	// для айді
 	int for_id;
 
+	// для прапорця видалення
+	char flag;
+
 	// для роботи функцій
 	char name[100] = "";
 	char fone[15] = "";
@@ -150,16 +153,39 @@ int main(int argc, char* argv[]) {
 		//n додавання новго запису
 		case 110:
 			// для задання новий айді
-			for_id = read_database_file(DB_path, &head);
+			read_database_file(DB_path, &head);
 
+			// прапореь вибору режиму (для заміни того що видалено чи створення нового запису)
+			flag = 0;
+
+			// шукаємо видалений запис
+			while (head != NULL) {
+				if (head->deleted == 1) {
+					for_id = head->id;
+					// взводимо прапорець
+					flag = 1;
+					printf("\nHas whitespace in .dat at %d id\n", head->id);
+					break;
+
+				}
+				// перевіряємо наступний елемент списку
+				head = head->next;
+			}
+			// очищаємо список
+			while (head != NULL) {
+				struct Person* temp = head;
+				head = head->next;
+				free(temp);
+			}
 			//system("cls");
-			printf("\n Making new contact");
+			printf(" Making new contact");
 			struct Person new_person;
 			// запису старими значеннями
 			new_person.id = for_id;
 			new_person.deleted = 0;
 
-			// ввід імені
+			// ввід старого імені
+			char name[50];
 			printf("\n What`s name of new contact: ");
 
 			// захист від пропуску запису через вибір режиму
@@ -167,27 +193,35 @@ int main(int argc, char* argv[]) {
 			if (strlen(name) == 0) gets(name);
 			strcpy(new_person.name_lastname, name);
 
-			// ввід телефону
+			// ввід старого телефону
+			char fone[15];
 			printf("\n What`s phone number: ");
 			gets(fone);
 			strcpy(new_person.phone, fone);
 
-			// ввід дати народження
-			printf(" What`s birtday (DDMMYYYY format): ");
+			// ввід старого дати народження
+			int bith;
+			printf("\n What`s birtday (DDMMYYYY format): ");
 			scanf_s("%d", &bith);
 			new_person.birtday = bith;
 
-			// ввід телеграму
-			printf("Has this contact telegram? (1 - yes/0 - no): ");
+			// ввід старого імені
+			int tg;
+			printf("\n Has this contact telegram? (1 - yes/0 - no): ");
 			scanf_s("%d", &tg);
 			new_person.telegram = tg;
 
 
 			new_person.next = NULL;
 
-
-			add_to_db(DB_path, &new_person);
-	
+			// якщо немає видалених записів то створюємо новий
+			if (flag == 0) {
+				add_to_db(DB_path, &new_person);
+			}
+			// є видалені редагуємо
+			else {
+				update_contact(DB_path, for_id, &new_person);
+			}
 			break;
 
 			// d - delete
