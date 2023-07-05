@@ -15,9 +15,9 @@ int main() {
 
     setlocale(LC_CTYPE, "ukr");
    
-    char dbFilename[MAX_FILENAME_LENGTH];
-    char licenseKey[KEY_LENGTH];
-    char currentNameFile[MAX_FILENAME_LENGTH];
+    char dbFilename[MAX_FILENAME_LENGTH+1];
+    char licenseKey[KEY_LENGTH+1];
+    char currentNameFile[MAX_FILENAME_LENGTH+1];
     printf("Введіть назву файлу: Приклад 'data.txt' -  ");
     fgets(currentNameFile, MAX_FILENAME_LENGTH, stdin);
     currentNameFile[strcspn(currentNameFile, "\n")] = '\0';
@@ -62,7 +62,7 @@ start:
             switch (menu()) {
             case 1:
                 input(currentNameFile);
-
+                goto start;
                 break;
             case 2:
                 delet(currentNameFile);
