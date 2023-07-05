@@ -46,43 +46,43 @@ PUBLIC int menu() {
             return 0;
         }
         else {
-            printf("\nÍå â³ðíà îïåðàö³ÿ. Áóäü ëàñêà, ââåä³òü îïåð³þ ç âèùå íàçâàíèõ\n");
+            printf("\nНе вірна операція. Будь ласка, введіть оперію з вище названих\n");
         }
     }
 }
 PRIVATE int code_exists(int code_num, const char* CurfileName) {
-    // Â³äêðèòòÿ ôàéëó äëÿ ÷èòàííÿ
+    // Відкриття файлу для читання
     FILE* f_my = fopen(CurfileName, "a+");
     if (f_my == NULL) {
-        printf("Ïîìèëêà â³äêðèòòÿ ôàéëó.\n");
-        return 0; // Ïîìèëêà ïðè â³äêðèòò³ ôàéëó, ïîâåðòàºìî 0
+        printf("Помилка відкриття файлу.\n");
+        return 0; // Помилка при відкритті файлу, повертаємо 0
     }
 
-    int exists = 0; // Ïðàïîðåöü äëÿ ïîçíà÷åííÿ íàÿâíîñò³ êîäó òîâàðó
+    int exists = 0; // Прапорець для позначення наявності коду товару
     struct info* current_info = (struct info*)malloc(sizeof(struct info));
     if (current_info == NULL) {
-        printf("Ïîìèëêà âèä³ëåííÿ ïàì'ÿò³.\n");
+        printf("Помилка виділення пам'яті.\n");
         fclose(f_my);
-        return 0; // Ïîìèëêà ïðè âèä³ëåíí³ ïàì'ÿò³, ïîâåðòàºìî 0
+        return 0; // Помилка при виділенні пам'яті, повертаємо 0
     }
 
-    // Ïåðåá³ð çàïèñ³â ó ôàéë³
+    // Перебір записів у файлі
     while (fscanf(f_my, "%d", &(current_info->number)) == 1) {
-        // Ïåðåâ³ðêà, ÷è çóñòð³÷àºòüñÿ ââåäåíèé êîä òîâàðó
+        // Перевірка, чи зустрічається введений код товару
         if (current_info->number == code_num) {
-            exists = 1; // Êîä òîâàðó çíàéäåíèé, ïîçíà÷àºìî íàÿâí³ñòü
+            exists = 1; // Код товару знайдений, позначаємо наявність
             break;
         }
 
-        // Ïðîïóñê ðåøòè ðÿäêà
+        // Пропуск решти рядка
         char c;
         while ((c = fgetc(f_my)) != '\n' && c != EOF);
     }
 
-    fclose(f_my); // Çàêðèòòÿ ôàéëó
-    free(current_info); // Çâ³ëüíåííÿ âèä³ëåíî¿ ïàì'ÿò³
+    fclose(f_my); // Закриття файлу
+    free(current_info); // Звільнення виділеної пам'яті
 
-    return exists; // Ïîâåðòàºìî çíà÷åííÿ ïðàïîðöÿ íàÿâíîñò³
+    return exists; // Повертаємо значення прапорця наявності
 }
 PUBLIC void input(const char* CurfileName) {
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
@@ -152,17 +152,17 @@ PUBLIC void input(const char* CurfileName) {
 PUBLIC void print(const char* CurfileName) {
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Ïîìèëêà âèä³ëåííÿ ïàì'ÿò³.\n");
+        printf("Помилка виділення пам'яті.\n");
         return;
     }
 
-    FILE* f_my = fopen(CurfileName, "a+");  // Â³äêðèòòÿ ôàéëó äëÿ ÷èòàííÿ çàïèñ³â
+    FILE* f_my = fopen(CurfileName, "a+");  // Відкриття файлу для читання записів
     if (f_my == NULL) {
-        printf("Ïîìèëêà â³äêðèòòÿ ôàéëó.\n");
+        printf("Помилка відкриття файлу.\n");
         return;
     }
 
-    printf("| Êîä òîâàðó |   Íàçâà òîâàðó  |  Ãðóïà òîâàðó  | Ö³íà òîâàðó | Ïîñòà÷àëüíèê òîâàðó |\n");
+    printf("| Код товару |   Назва товару  |  Група товару  | Ціна товару | Постачальник товару |\n");
     printf("+-----------------------------------------------------------------------------------+\n");
     while (fscanf(f_my, "%d %s %s %f %s", &new_info->number, &new_info->name, &new_info->group_product, &new_info->price, &new_info->provider) != EOF) {
         printf("|%11d | %15s | %14s | %11.2f | %18s  |\n", new_info->number, new_info->name, new_info->group_product, new_info->price, new_info->provider);
@@ -171,30 +171,30 @@ PUBLIC void print(const char* CurfileName) {
     }
     printf("+-----------------------------------------------------------------------------------+\n");
 
-    fclose(f_my);  // Çàêðèòòÿ ôàéëó
+    fclose(f_my);  // Закриття файлу
 
 }
 PUBLIC void delet(const char* CurfileName) {
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Ïîìèëêà âèä³ëåííÿ ïàì'ÿò³.\n");
+        printf("Помилка виділення пам'яті.\n");
         return;
     }
 
     int s;
-    printf("Ââåä³òü íîìåð ïðîäóêòó äëÿ âèäàëåííÿ: ");
+    printf("Введіть номер продукту для видалення: ");
     scanf_s("%d", &s);
 
-    FILE* f_my = fopen(CurfileName, "r");  // Â³äêðèòòÿ ôàéëó äëÿ ÷èòàííÿ çàïèñ³â
+    FILE* f_my = fopen(CurfileName, "r");  // Відкриття файлу для читання записів
     if (f_my == NULL) {
-        printf("Ïîìèëêà â³äêðèòòÿ ôàéëó.\n");
+        printf("Помилка відкриття файлу.\n");
         free(new_info);
         return;
     }
 
-    FILE* f_temp = fopen("temp.txt", "w");  // Â³äêðèòòÿ òèì÷àñîâîãî ôàéëó äëÿ çàïèñó
+    FILE* f_temp = fopen("temp.txt", "w");  // Відкриття тимчасового файлу для запису
     if (f_temp == NULL) {
-        printf("Ïîìèëêà â³äêðèòòÿ òèì÷àñîâîãî ôàéëó.\n");
+        printf("Помилка відкриття тимчасового файлу.\n");
         free(new_info);
         fclose(f_my);
         return;
@@ -208,13 +208,13 @@ PUBLIC void delet(const char* CurfileName) {
     }
 
     free(new_info);
-    fclose(f_my);    // Çàêðèòòÿ ôàéë³â
+    fclose(f_my);    // Закриття файлів
     fclose(f_temp);
 
-    remove(CurfileName);      // Âèäàëåííÿ ïî÷àòêîâîãî ôàéëó
-    rename("temp.txt", CurfileName);  // Ïåðåéìåíóâàííÿ òèì÷àñîâîãî ôàéëó
+    remove(CurfileName);      // Видалення початкового файлу
+    rename("temp.txt", CurfileName);  // Перейменування тимчасового файлу
 
-    printf("Çàïèñ ç íîìåðîì %d óñï³øíî âèäàëåíèé.\n", s);
+    printf("Запис з номером %d успішно видалений.\n", s);
 }
 PUBLIC void change(const char* CurfileName) {
     int col, cod;
@@ -376,22 +376,22 @@ col:
 PUBLIC void search_by_supplier(const char* CurfileName) {
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Ïîìèëêà âèä³ëåííÿ ïàì'ÿò³.\n");
+        printf("Помилка виділення пам'яті.\n");
         return;
     }
     char name1[MAX + 1];
 
     FILE* f_my = fopen(CurfileName, "a+");
     if (f_my == NULL) {
-        printf("Ïîìèëêà â³äêðèòòÿ ôàéëó.\n");
+        printf("Помилка відкриття файлу.\n");
         return;
     }
 
-    printf("Ââåä³òü íàçâó ïîñòà÷àëüíèêà: ");
+    printf("Введіть назву постачальника: ");
     scanf_s("%s", name1, MAX);
     while (getchar() != '\n');
 
-    printf("| Êîä òîâàðó |   Íàçâà òîâàðó  |  Ãðóïà òîâàðó  | Ö³íà òîâàðó | Ïîñòà÷àëüíèê òîâàðó |\n");
+    printf("| Код товару |   Назва товару  |  Група товару  | Ціна товару | Постачальник товару |\n");
     printf("+-----------------------------------------------------------------------------------+\n");
     while (fscanf(f_my, "%d %s %s %f %s", &new_info->number, &new_info->name,
         &new_info->group_product, &new_info->price, &new_info->provider) != EOF) {
@@ -412,20 +412,20 @@ PUBLIC void search_by_supplier(const char* CurfileName) {
 }
 PUBLIC void low_prices(const char* CurfileName) {
     float low_price;
-    printf("Ââåä³òü áàæàíó ö³íó: ");
+    printf("Введіть бажану ціну: ");
     scanf_s("%f", &low_price);
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Ïîìèëêà âèä³ëåííÿ ïàì'ÿò³.\n");
+        printf("Помилка виділення пам'яті.\n");
         return;
     }
     FILE* f_my = fopen(CurfileName, "a+");
     if (f_my == NULL) {
-        printf("Ïîìèëêà â³äêðèòòÿ ôàéëó.\n");
+        printf("Помилка відкриття файлу.\n");
         return;
     }
 
-    printf("| Êîä òîâàðó |   Íàçâà òîâàðó  |  Ãðóïà òîâàðó  | Ö³íà òîâàðó | Ïîñòà÷àëüíèê òîâàðó |\n");
+    printf("| Код товару |   Назва товару  |  Група товару  | Ціна товару | Постачальник товару |\n");
     printf("+-----------------------------------------------------------------------------------+\n");
     while (fscanf(f_my, "%d %s %s %f %s", &new_info->number, &new_info->name, &new_info->group_product, &new_info->price, &new_info->provider) != EOF) {
         if (low_price > new_info->price) {
@@ -466,7 +466,7 @@ PUBLIC void generation_key() {
 
     FILE* f_my_key = fopen("infopractice.cfg", "a+");
     if (f_my_key == NULL) {
-        printf("Ïîìèëêà â³äêðèòòÿ ôàéëó.\n");
+        printf("Помилка відкриття файлу.\n");
         return;
     }
 
@@ -482,28 +482,28 @@ PUBLIC void generation_key() {
     fclose(f_my_key);
 }
 PUBLIC bool is_valid_key() {
-    // Â³äêðèòòÿ ôàéëó äëÿ ç÷èòóâàííÿ êëþ÷à 
+    // Відкриття файлу для зчитування ключа 
     FILE* f_my_key = fopen("infopractice.cfg", "a+");
     if (f_my_key == NULL) {
-        printf("Ïîìèëêà â³äêðèòòÿ ôàéëó.\n");
+        printf("Помилка відкриття файлу.\n");
         return false;
     }
 
-    // Ç÷èòóâàííÿ êëþ÷à ç ôàéëó
+    // Зчитування ключа з файлу
     char stored_key[KEY_LENGTH + 1];
     fgets(stored_key, sizeof(stored_key), f_my_key);
 
-    // Âèäàëåííÿ ñèìâîëó íîâîãî ðÿäêà, ÿêèé ìîæå áóòè ïðî÷èòàíèé ç ôàéëó
+    // Видалення символу нового рядка, який може бути прочитаний з файлу
     stored_key[strcspn(stored_key, "\n")] = '\0';
 
-    // Çàêðèòòÿ ôàéëó
+    // Закриття файлу
     fclose(f_my_key);
 
-    // Ïåðåâ³ðêà äîâæèíè êëþ÷à
+    // Перевірка довжини ключа
     if (strlen(stored_key) != KEY_LENGTH)
         return false;
 
-    // Ïåðåâ³ðêà äîïóñòèìèõ ñèìâîë³â
+    // Перевірка допустимих символів
     char sixteen_num[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
     for (int i = 0; i < KEY_LENGTH; i++) {
         bool valid_char = false;
@@ -520,29 +520,29 @@ PUBLIC bool is_valid_key() {
     return true;
 }
 PUBLIC void file_change_name(const char* CurfileName) {
-    char NewNameFile[MAX_FILENAME_LENGTH]; // Çàì³íèòè íà ïîòð³áíå ïî÷àòêîâå ³ì'ÿ ôàéëó
+    char NewNameFile[MAX_FILENAME_LENGTH+1]; // Замінити на потрібне початкове ім'я файлу
 
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Ïîìèëêà âèä³ëåííÿ ïàì'ÿò³.\n");
+        printf("Помилка виділення пам'яті.\n");
         return;
     }
 
     while (getchar() != '\n');
-    printf("Ââåä³òü íîâó íàçâó ôàéëà: ");
-    fgets(NewNameFile, MAX_FILENAME_LENGTH, stdin);
-    NewNameFile[strcspn(NewNameFile, "\n")] = '\0';
+    printf("Введіть нову назву файла: ");
+    fgets(NewNameFile, MAX_FILENAME_LENGTH+1, stdin);
+   
 
-    FILE* f_my = fopen(CurfileName, "r");  // Â³äêðèòòÿ ôàéëó äëÿ ÷èòàííÿ çàïèñ³â
+    FILE* f_my = fopen(CurfileName, "r");  // Відкриття файлу для читання записів
     if (f_my == NULL) {
-        printf("Ïîìèëêà â³äêðèòòÿ ôàéëó.\n");
+        printf("Помилка відкриття файлу.\n");
         free(new_info);
         return;
     }
 
     FILE* f_temp = fopen(NewNameFile, "w+");
     if (f_temp == NULL) {
-        printf("Ïîìèëêà â³äêðèòòÿ òèì÷àñîâîãî ôàéëó.\n");
+        printf("Помилка відкриття тимчасового файлу.\n");
         free(new_info);
         fclose(f_my);
         return;
@@ -554,30 +554,29 @@ PUBLIC void file_change_name(const char* CurfileName) {
     }
 
     free(new_info);
-    fclose(f_my);    // Çàêðèòòÿ ôàéë³â
+    fclose(f_my);    // Закриття файлів
     fclose(f_temp);
-    remove(CurfileName);  // Âèäàëåííÿ ïî÷àòêîâîãî ôàéëó
+    remove(CurfileName);  // Видалення початкового файлу
 }
 PUBLIC void exportCSV(const char* CurfileName) {
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     struct info* first = NULL;
 
-
-    char csv[MAX_FILENAME_LENGTH];
-    printf("Ââåä³òü íàçâó CSV ôàéëà: Ïðèêëàä 'data.csv' -  ");
+    char csv[MAX_FILENAME_LENGTH+1];
+    printf("Введіть назву CSV файла: Приклад 'data.csv' -  ");
     while (getchar() != '\n');
     fgets(csv, MAX_FILENAME_LENGTH, stdin);
     csv[strcspn(csv, "\n")] = '\0';
 
     FILE* f_my = fopen(CurfileName, "r");
     if (f_my == NULL) {
-        printf("Íå âäàëîñÿ â³äêðèòè ôàéë äëÿ ç÷èòóâàííÿ.\n");
+        printf("Не вдалося відкрити файл для зчитування.\n");
         return;
     }
 
     FILE* file = fopen(csv, "w+");
     if (file == NULL) {
-        printf("Íå âäàëîñÿ â³äêðèòè ôàéë äëÿ çàïèñó csv.\n");
+        printf("Не вдалося відкрити файл для запису csv.\n");
         fclose(f_my);
         return;
     }
@@ -598,6 +597,6 @@ PUBLIC void exportCSV(const char* CurfileName) {
     fclose(file);
     fclose(f_my);
 
-    printf("Äàí³ óñï³øíî åêñïîðòîâàíî ó ôàéë ç ðîçøèðåííÿì csv -  %s\n", csv);
+    printf("Дані успішно експортовано у файл з розширенням csv -  %s\n", csv);
 
 }
