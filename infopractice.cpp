@@ -222,33 +222,33 @@ PUBLIC void change(const char* CurfileName) {
     struct info* first = NULL;
     struct info* new_info = (struct info*)malloc(sizeof(struct info));
     if (new_info == NULL) {
-        printf("Ïîìèëêà âèä³ëåííÿ ïàì'ÿò³.\n");
+        printf("Помилка виділення пам'яті.\n");
         return;
     }
 
-    FILE* f_my = fopen(CurfileName, "r");  // Â³äêðèòòÿ ôàéëó äëÿ ÷èòàííÿ çàïèñ³â
+    FILE* f_my = fopen(CurfileName, "r");  // Відкриття файлу для читання записів
     if (f_my == NULL) {
-        printf("Ïîìèëêà â³äêðèòòÿ ôàéëó.\n");
+        printf("Помилка відкриття файлу.\n");
         return;
     }
 
-    FILE* f_temp = fopen("temp.txt", "w");  // Â³äêðèòòÿ òèì÷àñîâîãî ôàéëó äëÿ çàïèñó
+    FILE* f_temp = fopen("temp.txt", "w");  // Відкриття тимчасового файлу для запису
 col:
-    printf("Ââåä³òü íîìåð ñòîâïöÿ: ");
+    printf("Введіть номер стовпця: ");
     scanf_s("%d", &col);
 
     switch (col) {
     case 1:
-        printf("Ââåä³òü íîìåð òîâàðó: ");
+        printf("Введіть номер товару: ");
         scanf_s("%d", &cod);
         while (getchar() != '\n');
 
         while (fscanf(f_my, "%d %s %s %f %s", &new_info->number, new_info->name, new_info->group_product, &new_info->price, new_info->provider) != EOF) {
             if (new_info->number == cod) {
-                printf("Ââåä³òü íîâèé íîìåð òîâàðó: ");
+                printf("Введіть новий номер товару: ");
                 while (1) {
                     if (scanf_s("%d", &code_num) != 1 || code_num < 0 || code_num >= MAX || code_exists(code_num, CurfileName)) {
-                        printf("Ïîìèëêà: íåäîïóñòèìèé íîìåð ïðîäóêòó àáî òàêèé íîìåð âæå âèêîðèñòîâóºòüñÿ. Ââåä³òü êîä òîâàðó ùå ðàç: ");
+                        printf("Помилка: недопустимий номер продукту або такий номер вже використовується. Введіть код товару ще раз: ");
                         while (getchar() != '\n');
                     }
                     else {
@@ -264,14 +264,14 @@ col:
 
     case 2: {
         char name2[MAX + 1];
-        printf("Ââåä³òü íîìåð òîâàðó: ");
+        printf("Введіть номер товару: ");
         scanf_s("%d", &cod);
         while (getchar() != '\n');
 
         while (fscanf(f_my, "%d %s %s %f %s", &new_info->number, &new_info->name, &new_info->group_product, &new_info->price, &new_info->provider) != EOF) {
 
             if (new_info->number == cod) {
-                printf("Ââåä³òü íîâó íàçâó òîâàðó: ");
+                printf("Введіть нову назву товару: ");
                 fgets(name2, MAX + 1, stdin);
                 strcpy(new_info->name, name2);
                 new_info->name[strcspn(new_info->name, "\n")] = '\0';
@@ -284,14 +284,14 @@ col:
     }break;
     case 3: {
         char name2[MAX + 1];
-        printf("Ââåä³òü íîìåð òîâàðó: ");
+        printf("Введіть номер товару: ");
         scanf_s("%d", &cod);
         while (getchar() != '\n');
 
         while (fscanf(f_my, "%d %s %s %f %s", &new_info->number, &new_info->name, &new_info->group_product, &new_info->price, &new_info->provider) != EOF) {
 
             if (new_info->number == cod) {
-                printf("Ââåä³òü íîâó ãðóïó òîâàðó: ");
+                printf("Введіть нову групу товару: ");
                 fgets(name2, MAX + 1, stdin);
                 strcpy(new_info->group_product, name2);
                 new_info->group_product[strcspn(new_info->group_product, "\n")] = '\0';
@@ -303,8 +303,8 @@ col:
 
     }break;
     case 4: {
-        float num_price_2;
-        printf("Ââåä³òü íîìåð òîâàðó: ");
+    
+        printf("Введіть номер товару: ");
         scanf_s("%d", &cod);
         while (getchar() != '\n');
 
@@ -312,15 +312,15 @@ col:
 
 
             if (new_info->number == cod) {
-                printf("Ââåä³òü íîâó ö³íó: ");
+                printf("Введіть нову ціну: ");
                 while (1) {
-                    if (scanf_s("%f", &num_price_2) != 1 || num_price_2 < 0) {
-                        printf("Ïîìèëêà: íåäîïóñòèìèé íîìåð ïðîäóêòó àáî òàêèé íîìåð âæå âèêîðèñòîâóºòüñÿ. Ââåä³òü êîä òîâàðó ùå ðàç: ");
+                    if (scanf_s("%f", &price_num) != 1 || price_num < 0) {
+                        printf("Помилка: недопустимий номер продукту або такий номер вже використовується. Введіть код товару ще раз: ");
                         while (getchar() != '\n');
-                        break;
+                        
                     }
                     else {
-                        new_info->price = num_price_2;
+                        new_info->price = price_num;
                         while (getchar() != '\n');
                         break;
                     }
@@ -330,14 +330,14 @@ col:
 
             }
 
-            fprintf(f_temp, "%d %s %s %.2f %s\n", new_info->price = num_price_2, new_info->name, new_info->group_product, new_info->price, new_info->provider);
+            fprintf(f_temp, "%d %s %s %.2f %s\n", new_info->number, new_info->name, new_info->group_product, new_info->price, new_info->provider);
 
         }
 
     }break;
     case 5: {
         char name2[MAX + 1];
-        printf("Ââåä³òü íîìåð òîâàðó: ");
+        printf("Введіть номер товару: ");
         scanf_s("%d", &cod);
         while (getchar() != '\n');
 
@@ -345,7 +345,7 @@ col:
 
 
             if (new_info->number == cod) {
-                printf("Ââåä³òü íîâîãî ïîñòà÷àëüíèêà òîâàðó: ");
+                printf("Введіть нового постачальника товару: ");
                 fgets(name2, MAX + 1, stdin);
                 strcpy(new_info->provider, name2);
                 new_info->provider[strcspn(new_info->provider, "\n")] = '\0';
@@ -357,19 +357,19 @@ col:
 
     }break;
     default:
-        printf("Íåïðàâèëüíèé íîìåð ñòîâïöÿ.\n");
+        printf("Неправильний номер стовпця.\n");
         goto col;
         break;
     }
 
     free(new_info);
-    fclose(f_my);    // Çàêðèòòÿ ôàéë³â
+    fclose(f_my);    // Закриття файлів
     fclose(f_temp);
 
-    remove(CurfileName);      // Âèäàëåííÿ ïî÷àòêîâîãî ôàéëó
-    rename("temp.txt", CurfileName);  // Ïåðåéìåíóâàííÿ òèì÷àñîâîãî ôàéëó
+    remove(CurfileName);      // Видалення початкового файлу
+    rename("temp.txt", CurfileName);  // Перейменування тимчасового файлу
 
-    printf("Çì³íà äàíèõ óñï³øíî âèêîíàíà.\n");
+    printf("Зміна даних успішно виконана.\n");
 
 
 }
