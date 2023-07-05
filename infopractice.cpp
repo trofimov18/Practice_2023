@@ -109,7 +109,7 @@ PUBLIC void input(const char* CurfileName) {
         if (scanf_s("%d", &code_num) != 1 || code_num < 0 || code_num >= MAX || code_exists(code_num, CurfileName)) {
             printf("Помилка: недопустимий номер продукту або такий номер вже використовується. Введіть код товару ще раз: ");
             while (getchar() != '\n');
-            break;
+            
         }
         else {
             new_info->number = code_num;
