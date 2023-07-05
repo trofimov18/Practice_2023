@@ -52,15 +52,36 @@ int read_database_file(char* db_name, struct node** head) {
 void add_to_db(const char* filename, const struct Person* person) {
 	// Відкриття файлу для додавання у режимі бінарного запису
 	FILE* file = fopen(filename, "ab");
-	if (file == NULL) {
-		printf("\n!WRN File open error!\n");
-		// виходимо з функції
-		return;
-	}
 
 	// Запис структури в файл
 	fwrite(person, sizeof(struct Person), 1, file);
 
 	// Закриття файлу
+	fclose(file);
+}
+
+
+// функція зміни будь якого поля в базі данних
+void update_contact(const char* filename, unsigned int id, struct Person* new_person) {
+	// відкриваємо файл для читання/запису в бінарному режимі
+	FILE* file = fopen(filename, "r+b");
+
+	struct Person person;
+
+	// читаємо структуру
+	while (fread(&person, sizeof(struct Person), 1, file) == 1) {
+		// як індефікатор співпав то заміняємо на нашу структуру
+		if (person.id == id) {
+			// змінна для зміщення курсору по байтам файлу
+			long offset = sizeof(struct Person) * (-1);
+			// виставляємо куди
+			fseek(file, offset, SEEK_CUR);
+			// заміняємо на нашу структуру
+			fwrite(new_person, sizeof(struct Person), 1, file);
+			// прапорець що все добре
+			break;
+		}
+	}
+	// закриваємо файл
 	fclose(file);
 }

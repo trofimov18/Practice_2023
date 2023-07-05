@@ -21,10 +21,14 @@ struct Person {
 // Оголошення функції створення файлу бази даних
 int make_database_file(char* db_name);
 
-
 // Зчитування значень з файла бази даних
 int read_database_file(char* db_name, struct node** head);
 
 // Додавання нових записів до бази даних
 void add_to_db(char* db_name, const struct Person* person);
+
+// функція зміни будь якого поля в базі данних
+void update_contact(const char* filename, unsigned int id, struct Person* new_person);
+
+
 #endif
