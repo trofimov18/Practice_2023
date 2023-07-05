@@ -18,6 +18,8 @@
 #include "config_manager.h"
 #include "license_key.h"
 #include "db_manager.h"
+#include "db_pretty_output.h"
+
 
 void hot_keys() {
 	printf("\n q -- exit program\n k -- editing license key\n p -- edit path to BD\n l -- show list of contacts\n n -- add new contact");
@@ -74,7 +76,7 @@ int main(int argc, char* argv[]) {
 	DB_path[strlen(DB_path) - 1] = '\0';
 
 	// перевірка чи є цей файл
-	if (read_database_file(DB_path, &head) != 0) {
+	if (read_database_file(DB_path, &head) == -1) {
 		printf("\nDB file error\nCreating  DB file");
 		make_database_file(DB_path);
 	}
@@ -88,6 +90,14 @@ int main(int argc, char* argv[]) {
 
 	// нескінченний цикл де все "крутиться"
 	for (;;) {
+
+		// очищаємо список
+		while (head != NULL) {
+			struct Person* temp = head;
+			head = head->next;
+			free(temp);
+		}
+
 		hot_keys();
 		// отримуємо горячу клавішу (тільки англ розкладка)
 		operation = getch();
@@ -133,6 +143,7 @@ int main(int argc, char* argv[]) {
 			// виводимо всі контакти
 			printf("\n Full list of contacts");
 			read_database_file(DB_path, &head);
+			pretty_output_base(&head);
 			break;
 
 
