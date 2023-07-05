@@ -22,7 +22,7 @@
 
 
 void hot_keys() {
-	printf("\n q -- exit program\n k -- editing license key\n p -- edit path to BD\n l -- show list of contacts\n n -- add new contact");
+	printf("\n q -- exit program\n k -- editing license key\n p -- edit path to BD\n l -- show list of contacts\n n -- add new contact\n d -- delete contact");
 }
 
 
