@@ -11,7 +11,7 @@ struct info* first = NULL;
 
 
 
-int code_num = 0, new_code_num = 0;
+int code_num = 0;
 float price_num = 0;
 
 
