@@ -22,7 +22,7 @@
 
 
 void hot_keys() {
-	printf("\n l -- show list of contacts\n n -- add new contact\n d -- delete contact\n e -- edit contact\n\n k -- editing license key\n p -- edit path to BD\n\n q -- exit program");
+	printf("\n l -- show list of contacts\n n -- add new contact\n d -- delete contact\n e -- edit contact\n\n t -- show list of contacts without telegram\n\n k -- editing license key\n p -- edit path to BD\n\n q -- exit program");
 }
 
 
@@ -147,6 +147,20 @@ int main(int argc, char* argv[]) {
 			printf("\n Full list of contacts");
 			read_database_file(DB_path, &head);
 			pretty_output_base(&head);
+			break;
+
+
+			//t виведення списку контактів
+		case 116:
+			// очищуємо консоль
+			system("cls");
+			if (program_activate == 0) {
+				// виводимо всі контакти
+				printf("\n Full list of contacts");
+				read_database_file(DB_path, &head);
+				pretty_output_base_telegram(&head);
+			}
+			else printf("\n Sorry you can`t use this func, please enter valid license key");
 			break;
 
 
