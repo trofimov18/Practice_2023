@@ -1,0 +1,3 @@
+﻿  Rgr.cpp
+C:\Users\SlavMan\source\repos\Rgr\Rgr\Rgr.cpp(170,9): warning C4101: c: неиспользованная локальная переменная
+  Rgr.vcxproj -> C:\Users\SlavMan\source\repos\Rgr\x64\Debug\Rgr.exe
