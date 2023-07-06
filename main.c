@@ -22,13 +22,15 @@
 
 
 void hot_keys() {
-	printf("\n l -- show list of contacts\n n -- add new contact\n d -- delete contact\n e -- edit contact\n\n t -- show list of contacts without telegram\n m -- show contacts witch birthday in chosen month\n\n k -- editing license key\n p -- edit path to BD\n\n q -- exit program");
+	printf("\n l -- show list of contacts\n n -- add new contact\n d -- delete contact\n e -- edit contact\n\n t -- show list of contacts without telegram\n m -- show contacts witch birthday in chosen month\n\n x -- export DB to .csv format\n\n k -- editing license key\n p -- edit path to BD\n\n q -- exit program");
 }
 
 
 int main(int argc, char* argv[]) {
 	// шлях до бази данних
 	char DB_path[200];
+	// шлях до .csv файлу
+	char csv_file[200];
 	// зчитаний ключ з конфігураційного файлу
 	int license_key = 0;
 	// генерація імені файла
@@ -380,6 +382,18 @@ int main(int argc, char* argv[]) {
 				head = head->next;
 			}
 			system("cls");
+			break;
+
+		// x - експорт
+		case 120:
+			// очищуємо консоль
+			system("cls");
+			printf("\n Please input name for .cvs file: ");
+			scanf("%s", csv_file);
+			// виводимо всі контакти
+			//printf("\n Full list of contacts");
+			read_database_file(DB_path, &head);
+			export_to_csv(csv_file, &head);
 			break;
 
 		default:

@@ -85,3 +85,32 @@ void update_contact(const char* filename, unsigned int id, struct Person* new_pe
 	// закриваємо файл
 	fclose(file);
 }
+
+
+// експорт у .csv
+void export_to_csv(char* outfile, struct node** head) {
+	struct Person* current = *head;
+	// Відкриття файлу для додавання у режимі бінарного запису
+	FILE* file = fopen(outfile, "wb");
+	// заголовок таблиці
+	fprintf(file, "Id;Name;Phone number;Birthday;Telegram\n");
+
+	while (current != NULL) {
+		// виводимо якщо контакт не видалено
+		if (current->deleted == 0) {
+			// тут форматований вивід та розбиття дати народження для більш красивого виводу
+			fprintf(file, "%u;%s;%s;%02d.%02d.%4d;", current->id, current->name_lastname,
+				current->phone, current->birtday / 1000000, ((current->birtday - (current->birtday / 1000000) * 1000000) - current->birtday % 10000) / 10000,
+				current->birtday % 10000);
+			current->telegram == 1 ? fprintf(file, "+\n") : fprintf(file, "-\n");
+		}
+		// наступний контакт
+		current = current->next;
+	}
+
+	// Запис структури в файл
+	//fwrite(person, sizeof(struct Person), 1, file);
+
+	// Закриття файлу
+	fclose(file);
+}
