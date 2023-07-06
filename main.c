@@ -22,7 +22,7 @@
 
 
 void hot_keys() {
-	printf("\n l -- show list of contacts\n n -- add new contact\n d -- delete contact\n e -- edit contact\n\n t -- show list of contacts without telegram\n m -- show contacts witch birthday in chosen month\n\n x -- export DB to .csv format\n\n k -- editing license key\n p -- edit path to BD\n\n q -- exit program");
+	printf("\n l -- show list of contacts\n n -- add new contact\n d -- delete contact\n e -- edit contact\n\n t -- show list of contacts without telegram\n m -- show contacts witch birthday in chosen month\n\n x -- export DB to .csv format\n s -- save DB with another name\n\n k -- editing license key\n p -- edit path to BD\n\n q -- exit program");
 }
 
 
@@ -382,6 +382,19 @@ int main(int argc, char* argv[]) {
 				head = head->next;
 			}
 			system("cls");
+			break;
+
+		case 115:
+			// очищуємо консоль
+			system("cls");
+			printf("\n Please input name for saving DB file: ");
+			scanf("%s", csv_file);
+			make_database_file(csv_file);
+			read_database_file(DB_path, &head);
+			while (head != NULL) {
+				add_to_db(csv_file, head);
+				head = head->next;
+			}
 			break;
 
 		// x - експорт
