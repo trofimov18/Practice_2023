@@ -1,0 +1,83 @@
+Record number: 1
+
+Full name: Mett Kennedy
+Date of employment: 5 6 2015
+Wage rate: 120.00
+Base salary: 600.00
+
+Record number: 2
+
+Full name: Michael Willson
+Date of employment: 18 9 2013
+Wage rate: 120.00
+Base salary: 400.00
+
+Record number: 3
+
+Full name: Katty Robs
+Date of employment: 15 4 1995
+Wage rate: 280.00
+Base salary: 150.00
+
+Record number: 4
+
+Full name: Bobby Brown
+Date of employment: 4 12 1992
+Wage rate: 140.00
+Base salary: 700.00
+
+Record number: 5
+
+Full name: Sophie Grils
+Date of employment: 5 4 2013
+Wage rate: 400.00
+Base salary: 300.00
+
+Record number: 6
+
+Full name: Bella Watson
+Date of employment: 1 9 1985
+Wage rate: 200.00
+Base salary: 120.00
+
+Record number: 7
+
+Full name: Tom Smith
+Date of employment: 15 5 1993
+Wage rate: 100.00
+Base salary: 90.00
+
+Record number: 8
+
+Full name: Oliver Johnson
+Date of employment: 27 12 2004
+Wage rate: 250.00
+Base salary: 120.00
+
+Record number: 9
+
+Full name: Oskar Devis
+Date of employment: 13 1 2001
+Wage rate: 120.00
+Base salary: 80.00
+
+Record number: 10
+
+Full name: Ann Miller
+Date of employment: 17 6 2015
+Wage rate: 430.00
+Base salary: 120.00
+
+Record number 4 was deleted
+
+Record number 2 updated
+
+Wage rate: 300.00
+
+Record number: 11
+
+Full name: John Hels
+Date of employment: 14 6 2004
+Wage rate: 150.00
+Base salary: 120.00
+
