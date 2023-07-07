@@ -23,6 +23,11 @@ void addFlight() {
         return;
     }
 
+
+
+
+
+
     struct Flight newFlight = { "", "", 0, "", 0 };
     // Код для введення даних нового рейсу
     printf("Введіть пункт відправлення: ");
