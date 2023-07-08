@@ -1,0 +1,2 @@
+Poltava;Kyiv;1;Boing-1;34
+Kyiv;Boston;2;Boing-2;56
