@@ -1,0 +1,124 @@
+/**
+* @file test.cpp
+* @author Ананєнко Д.В., гр. 515а, варіант 30
+* @date 08 червня 2023
+* @brief Навчальна практика
+*
+* База даних дисертацій (Тестування)
+*/
+#include <gtest/gtest.h>
+#include <ctime>
+#include"pch.h"
+
+// Функция, которую мы тестируем
+int calculateDateDifference(const char* date1, const char* date2) {
+    struct tm tm1 = { 0 };
+    struct tm tm2 = { 0 };
+    sscanf(date1, "%4d%2d%2d", &tm1.tm_year, &tm1.tm_mon, &tm1.tm_mday);
+    sscanf(date2, "%4d%2d%2d", &tm2.tm_year, &tm2.tm_mon, &tm2.tm_mday);
+    time_t time1 = mktime(&tm1);
+    time_t time2 = mktime(&tm2);
+    return static_cast<int>(difftime(time2, time1)) / (60 * 60 * 24);
+}
+
+// Тесты для функции calculateDateDifference
+
+TEST(CalculateDateDifferenceTest, SameMonthDifference) {
+    const char* date1 = "20220701";
+    const char* date2 = "20220710";
+    int difference = calculateDateDifference(date1, date2);
+    EXPECT_EQ(difference, 0);
+}
+
+TEST(CalculateDateDifferenceTest, DifferentMonthDifference) {
+    const char* date1 = "20220630";
+    const char* date2 = "20220705";
+    int difference = calculateDateDifference(date1, date2);
+    EXPECT_EQ(difference, 0);
+}
+
+TEST(CalculateDateDifferenceTest, SameDateDifference) {
+    const char* date1 = "20220701";
+    const char* date2 = "20220701";
+    int difference = calculateDateDifference(date1, date2);
+    EXPECT_EQ(difference, 0);
+}
+
+// Добавьте другие тесты в соответствии с вашими ожида
+#include <gtest/gtest.h>
+#include <cstring>
+
+#define MAX_SIZE 100
+
+struct Dissertation {
+    int id;
+    char* council_code;
+    int registration_date;
+    int defense_date;
+};
+
+struct DissertationDatabase {
+    Dissertation dissertations[MAX_SIZE];
+    int count;
+};
+
+// Функция, которую мы тестируем
+void addDissertation(DissertationDatabase* database, const char* license_key, int registration_date, int defense_date) {
+    if (database->count < MAX_SIZE) {
+        Dissertation* dissertation = &database->dissertations[database->count];
+        dissertation->id = database->count + 1;
+        dissertation->council_code = new char[strlen(license_key) + 1];
+        strcpy(dissertation->council_code, license_key);
+        dissertation->defense_date = defense_date;
+        dissertation->registration_date = registration_date;
+        database->count++;
+        printf("Диссертация успешно добавлена.\n");
+    }
+    else {
+        printf("База данных диссертаций заполнена.\n");
+    }
+}
+
+// Тесты для функции addDissertation
+
+TEST(AddDissertationTest, AddDissertation_Success) {
+    DissertationDatabase database;
+    database.count = 0;
+
+    const char* license_key = "ABC123";
+    int registration_date = 20220101;
+    int defense_date = 20220630;
+
+    addDissertation(&database, license_key, registration_date, defense_date);
+
+    EXPECT_EQ(database.count, 1);
+    EXPECT_STREQ(database.dissertations[0].council_code, license_key);
+    EXPECT_EQ(database.dissertations[0].registration_date, registration_date);
+    EXPECT_EQ(database.dissertations[0].defense_date, defense_date);
+}
+
+TEST(AddDissertationTest, AddDissertation_DatabaseFull) {
+    DissertationDatabase database;
+    database.count = MAX_SIZE; // Заполняем базу данных до максимального размера
+
+    const char* license_key = "ABC123";
+    int registration_date = 20220101;
+    int defense_date = 20220630;
+
+    testing::internal::CaptureStdout(); // Захватываем вывод в консоль
+
+    addDissertation(&database, license_key, registration_date, defense_date);
+
+    std::string output = testing::internal::GetCapturedStdout(); // Получаем захваченный вывод
+
+    EXPECT_EQ(database.count, MAX_SIZE);
+    EXPECT_EQ(output, "База данных диссертаций заполнена.\n");
+}
+
+// Добавьте другие тесты в соответствии с вашими ожиданиями
+
+int main(int argc, char** argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+
