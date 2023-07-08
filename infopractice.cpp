@@ -130,7 +130,7 @@ PUBLIC void input(const char* CurfileName) {
         if (scanf_s("%f", &price_num) != 1 || price_num < 0) {
             printf("Помилка: ціна не може бути відємна. Введіть ще раз: ");
             while (getchar() != '\n');
-            break;
+            
         }
         else {
             new_info->price = price_num;
