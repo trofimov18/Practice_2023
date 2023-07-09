@@ -1,0 +1,1 @@
+/usr/bin/gcc CMakeFiles/DatabaseManager.dir/main.c.o CMakeFiles/DatabaseManager.dir/module.c.o -o bin/DatabaseManager 

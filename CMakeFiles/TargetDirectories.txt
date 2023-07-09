@@ -1,0 +1,5 @@
+/home/maksim/Рабочий стол/Практика/programDB/CMakeFiles/DatabaseManager.dir
+/home/maksim/Рабочий стол/Практика/programDB/CMakeFiles/UnitTests.dir
+/home/maksim/Рабочий стол/Практика/programDB/CMakeFiles/test.dir
+/home/maksim/Рабочий стол/Практика/programDB/CMakeFiles/edit_cache.dir
+/home/maksim/Рабочий стол/Практика/programDB/CMakeFiles/rebuild_cache.dir
