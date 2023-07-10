@@ -34,35 +34,35 @@ void openFile() {
 
 void addFlight() {
     if (numFlights >= MAX_FLIGHTS) {
-        printf("Неможливо додати більше рейсів. База заповнена.\n");
+        printf("Неможливо додати бiльше рейсiв. База заповнена.\n");
         return;
     }
 
     struct Flight* newFlight = (struct Flight*)malloc(sizeof(struct Flight));
     if (newFlight == NULL) {
-        printf("Помилка виділення пам'яті.\n");
+        printf("Помилка видiлення пам'ятi.\n");
         return;
     }
 
-    printf("Введіть пункт відправлення: ");
+    printf("Введiть пункт вiдправлення: ");
     scanf("%s", newFlight->departure);
-    printf("Введіть пункт призначення: ");
+    printf("Введiть пункт призначення: ");
     scanf("%s", newFlight->destination);
-    printf("Введіть номер рейсу: ");
+    printf("Введiть номер рейсу: ");
     scanf("%d", &(newFlight->flightNumber));
-    printf("Введіть тип літака: ");
+    printf("Введiть тип лiтака: ");
     scanf("%s", newFlight->aircraftType);
-    printf("Введіть кількість місць у літаку: ");
+    printf("Введiть кiлькiсть мiсць у лiтаку: ");
     scanf("%d", &(newFlight->seats));
 
     flights[numFlights++] = newFlight;
 
-    printf("Рейс успішно додано.\n");
+    printf("Рейс успiшно додано.\n");
 
     // Оновлення файлу
     FILE* file = fopen("flights.txt", "a");
     if (file == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("Помилка вiдкриття файлу.\n");
         return;
     }
 
@@ -73,7 +73,7 @@ void addFlight() {
 
 void deleteFlight() {
     int flightNumber;
-    printf("Введіть номер рейсу для видалення: ");
+    printf("Введiть номер рейсу для видалення: ");
     scanf("%d", &flightNumber);
 
     int found = 0;
@@ -85,7 +85,7 @@ void deleteFlight() {
                 flights[j] = flights[j + 1];
             }
             numFlights--;
-            printf("Рейс було успішно видалено.\n");
+            printf("Рейс було успiшно видалено.\n");
             break;
         }
     }
@@ -97,7 +97,7 @@ void deleteFlight() {
     // Оновлення файлу
     FILE* file = fopen("flights.txt", "w");
     if (file == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("Помилка вiдкриття файлу.\n");
         return;
     }
 
@@ -109,9 +109,9 @@ void deleteFlight() {
 }
 
 void displayFlights() {
-    printf("Список рейсів:\n");
+    printf("Список рейсiв:\n");
     printf("-----------------------------------------------------------------------\n");
-    printf("Відправлення\tПризначення\tНомер рейсу\tТип літака\tСидіння\n");
+    printf("Вiдправлення\tПризначення\tНомер рейсу\tТип лiтака\tСидiння\n");
     printf("-----------------------------------------------------------------------\n");
     for (int i = 0; i < numFlights; i++) {
         printf("%s\t\t%s\t\t%d\t\t%s\t\t%d\n",
@@ -126,7 +126,7 @@ void displayFlights() {
 
 void modifyFlight() {
     int flightNumber;
-    printf("Введіть номер рейсу для редагування: ");
+    printf("Введiть номер рейсу для редагування: ");
     scanf("%d", &flightNumber);
 
     int found = 0;
@@ -134,42 +134,42 @@ void modifyFlight() {
         if (flights[i]->flightNumber == flightNumber) {
             found = 1;
             printf("Рейс знайдено.\n");
-            printf("Виберіть, які характеристики рейсу потрібно змінити:\n");
-            printf("1. Пункт відправлення\n");
+            printf("Виберiть, якi характеристики рейсу потрiбно змiнити:\n");
+            printf("1. Пункт вiдправлення\n");
             printf("2. Пункт призначення\n");
-            printf("3. Тип літака\n");
-            printf("4. Кількість місць в літаку\n");
-            printf("0. Вихід без змін\n");
-            printf("Введіть номер команди: ");
+            printf("3. Тип лiтака\n");
+            printf("4. Кiлькiсть мiсць в лiтаку\n");
+            printf("0. Вихiд без змiн\n");
+            printf("Введiть номер команди: ");
             int choice;
             scanf("%d", &choice);
 
             switch (choice) {
             case 1:
-                printf("Введіть новий пункт відправлення: ");
+                printf("Введiть новий пункт вiдправлення: ");
                 scanf("%s", flights[i]->departure);
                 break;
             case 2:
-                printf("Введіть новий пункт призначення: ");
+                printf("Введiть новий пункт призначення: ");
                 scanf("%s", flights[i]->destination);
                 break;
             case 3:
-                printf("Введіть новий тип літака: ");
+                printf("Введiть новий тип лiтака: ");
                 scanf("%s", flights[i]->aircraftType);
                 break;
             case 4:
-                printf("Введіть нову кількість місць в літаку: ");
+                printf("Введiть нову кiлькiсть мiсць в лiтаку: ");
                 scanf("%d", &(flights[i]->seats));
                 break;
             case 0:
-                printf("Вихід без змін.\n");
+                printf("Вихiд без змiн.\n");
                 return;
             default:
-                printf("Некоректний вибір.\n");
+                printf("Некоректний вибiр.\n");
                 return;
             }
 
-            printf("Рейс успішно відредаговано.\n");
+            printf("Рейс успiшно вiдредаговано.\n");
             break;
         }
     }
@@ -181,7 +181,7 @@ void modifyFlight() {
     // Оновлення файлу
     FILE* file = fopen("flights.txt", "w");
     if (file == NULL) {
-        printf("Помилка відкриття файлу.\n");
+        printf("Помилка вiдкриття файлу.\n");
         return;
     }
 
@@ -195,12 +195,12 @@ void modifyFlight() {
 int checkKey() {
     FILE* keyFile = fopen("key.txt", "r");
     if (keyFile == NULL) {
-        printf("Помилка відкриття файлу з ключем.\n");
+        printf("Помилка вiдкриття файлу з ключем.\n");
         return 0;
     }
 
     char key[50];
-    printf("Введіть ключ: ");
+    printf("Введiть ключ: ");
     scanf("%s", key);
 
     char correctKey[50];
@@ -221,17 +221,17 @@ int checkKey() {
 
 void searchByDestination() {
     if (!checkKey()) {
-        return; // Помилка перевірки ключа, функція не виконується
+        return; // Помилка перевiрки ключа, функцiя не виконується
     }
     char destination[50];
-    printf("Введіть пункт призначення: ");
+    printf("Введiть пункт призначення: ");
     scanf("%s", destination);
 
     printf("Рейси до %s:\n", destination);
     printf("-----------------------------------------\n");
     for (int i = 0; i < numFlights; i++) {
         if (strcmp(flights[i]->destination, destination) == 0) {
-            printf("Номер рейсу: %d, Тип літака: %s\n",
+            printf("Номер рейсу: %d, Тип лiтака: %s\n",
                 flights[i]->flightNumber,
                 flights[i]->aircraftType);
         }
@@ -241,13 +241,13 @@ void searchByDestination() {
 
 void searchByAircraftType() {
     if (!checkKey()) {
-        return; // Помилка перевірки ключа, функція не виконується
+        return; // Помилка перевiрки ключа, функцiя не виконується
     }
     char aircraftType[50];
-    printf("Введіть тип літака: ");
+    printf("Введiть тип лiтака: ");
     scanf("%s", aircraftType);
 
-    printf("Рейси за типом літака %s:\n", aircraftType);
+    printf("Рейси за типом лiтака %s:\n", aircraftType);
     printf("-----------------------------------------\n");
     for (int i = 0; i < numFlights; i++) {
         if (strcmp(flights[i]->aircraftType, aircraftType) == 0) {
