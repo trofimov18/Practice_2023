@@ -1,3 +1,12 @@
+/*
+* @file   Functions.cpp
+* @author Хоменко А.В., гр. 515i
+* @date   10 липня 2023
+* @brief  Практична робота. Варіант 4.
+*
+* База даних авіарейсів
+*/
+
 #include "Functions.h"
 #include <stdio.h>
 #include <stdlib.h>

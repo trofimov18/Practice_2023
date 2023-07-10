@@ -1,4 +1,13 @@
-﻿#include <stdio.h>
+﻿/*
+* @file   MainPractice.cpp
+* @author Хоменко А.В., гр. 515i
+* @date   10 липня 2023
+* @brief  Практична робота. Варіант 4.
+*
+* База даних авіарейсів
+*/
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>

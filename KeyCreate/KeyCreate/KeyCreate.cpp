@@ -1,4 +1,13 @@
-﻿#include <stdio.h>
+﻿/*
+* @file   KeyCreate.cpp
+* @author Хоменко А.В., гр. 515i
+* @date   10 липня 2023
+* @brief  Практична робота. Варіант 4.
+*
+* Генератор випадкових ключів
+*/
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <locale.h>
